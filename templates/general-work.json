@@ -1,0 +1,290 @@
+{
+  "id": "general-work",
+  "name": "General Work Permit",
+  "description": "For general maintenance, repair, or construction work that doesn't fall into other specific permit categories.",
+  "colour": "#27ae60",
+  "sections": [
+    {
+      "title": "General Information",
+      "type": "authoriser",
+      "fields": [
+        {
+          "id": "permit_number",
+          "label": "Permit Number",
+          "type": "text",
+          "required": true
+        },
+        {
+          "id": "date_issued",
+          "label": "Date Issued",
+          "type": "date",
+          "required": true
+        },
+        {
+          "id": "valid_from",
+          "label": "Valid From (Time)",
+          "type": "time",
+          "required": true
+        },
+        {
+          "id": "valid_to",
+          "label": "Valid To (Time)",
+          "type": "time",
+          "required": true
+        },
+        {
+          "id": "location",
+          "label": "Location of Work",
+          "type": "text",
+          "required": true
+        },
+        {
+          "id": "description_of_work",
+          "label": "Description of Work",
+          "type": "textarea",
+          "required": true
+        }
+      ]
+    },
+    {
+      "title": "Hazards Identified",
+      "type": "authoriser",
+      "fields": [
+        {
+          "id": "hazard_mechanical",
+          "label": "Mechanical hazards (moving machinery, rotating parts)",
+          "type": "checkbox"
+        },
+        {
+          "id": "hazard_electrical",
+          "label": "Electrical hazards",
+          "type": "checkbox"
+        },
+        {
+          "id": "hazard_chemical",
+          "label": "Chemical/substance hazards",
+          "type": "checkbox"
+        },
+        {
+          "id": "hazard_noise",
+          "label": "Noise hazard",
+          "type": "checkbox"
+        },
+        {
+          "id": "hazard_dust",
+          "label": "Dust/fume hazard",
+          "type": "checkbox"
+        },
+        {
+          "id": "hazard_extreme_temp",
+          "label": "Extreme temperature",
+          "type": "checkbox"
+        },
+        {
+          "id": "hazard_manual_handling",
+          "label": "Manual handling",
+          "type": "checkbox"
+        },
+        {
+          "id": "hazard_slips_trips",
+          "label": "Slips, trips, falls",
+          "type": "checkbox"
+        },
+        {
+          "id": "hazard_other",
+          "label": "Other hazards (specify)",
+          "type": "textarea"
+        }
+      ]
+    },
+    {
+      "title": "Control Measures",
+      "type": "authoriser",
+      "fields": [
+        {
+          "id": "control_guards_fitted",
+          "label": "Guards/protective devices fitted",
+          "type": "checkbox"
+        },
+        {
+          "id": "control_area_isolated",
+          "label": "Work area isolated/cordoned off",
+          "type": "checkbox"
+        },
+        {
+          "id": "control_emergency_procedures",
+          "label": "Emergency procedures briefed",
+          "type": "checkbox"
+        },
+        {
+          "id": "control_first_aid",
+          "label": "First aid facilities available",
+          "type": "checkbox"
+        },
+        {
+          "id": "control_site_supervisor",
+          "label": "Site supervisor/competent person assigned",
+          "type": "checkbox"
+        },
+        {
+          "id": "control_housekeeping",
+          "label": "Housekeeping/waste management in place",
+          "type": "checkbox"
+        },
+        {
+          "id": "control_communication",
+          "label": "Communication system established",
+          "type": "checkbox"
+        },
+        {
+          "id": "control_additional",
+          "label": "Additional control measures (specify)",
+          "type": "textarea"
+        }
+      ]
+    },
+    {
+      "title": "Personnel",
+      "type": "authoriser",
+      "fields": [
+        {
+          "id": "authorised_by",
+          "label": "Authorised By (Name)",
+          "type": "text",
+          "required": true
+        },
+        {
+          "id": "authorised_by_position",
+          "label": "Position / Title",
+          "type": "text",
+          "required": true
+        },
+        {
+          "id": "competent_person",
+          "label": "Competent Person (if applicable)",
+          "type": "text"
+        },
+        {
+          "id": "contractor_company",
+          "label": "Contractor / Company",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "title": "PPE Requirements",
+      "type": "authoriser",
+      "fields": [
+        {
+          "id": "ppe_hard_hat",
+          "label": "Hard hat/safety helmet",
+          "type": "checkbox"
+        },
+        {
+          "id": "ppe_eye_protection",
+          "label": "Eye protection",
+          "type": "checkbox"
+        },
+        {
+          "id": "ppe_ear_protection",
+          "label": "Ear protection",
+          "type": "checkbox"
+        },
+        {
+          "id": "ppe_gloves",
+          "label": "Protective gloves",
+          "type": "checkbox"
+        },
+        {
+          "id": "ppe_hi_vis",
+          "label": "Hi-visibility vest/jacket",
+          "type": "checkbox"
+        },
+        {
+          "id": "ppe_safety_boots",
+          "label": "Safety boots",
+          "type": "checkbox"
+        },
+        {
+          "id": "ppe_respiratory",
+          "label": "Respiratory protection (specify type)",
+          "type": "text"
+        },
+        {
+          "id": "ppe_other",
+          "label": "Other PPE (specify)",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "title": "Additional Information",
+      "type": "authoriser",
+      "fields": [
+        {
+          "id": "working_hours",
+          "label": "Working hours restriction",
+          "type": "text",
+          "placeholder": "e.g. Mon-Fri 08:00-17:00"
+        },
+        {
+          "id": "special_conditions",
+          "label": "Special conditions or restrictions",
+          "type": "textarea"
+        }
+      ]
+    }
+  ],
+  "handwrittenSections": [
+    {
+      "title": "Worker Acknowledgement",
+      "description": "I confirm I have received a briefing on the hazards and controls for this work and will comply with all conditions of this permit.",
+      "fields": [
+        {
+          "label": "Worker Name (Print)",
+          "lines": 1
+        },
+        {
+          "label": "Worker Signature",
+          "lines": 1
+        },
+        {
+          "label": "Date / Time",
+          "lines": 1
+        }
+      ]
+    },
+    {
+      "title": "Additional Workers",
+      "description": "List any other workers involved in this activity.",
+      "fields": [
+        {
+          "label": "Names and Signatures",
+          "lines": 4
+        }
+      ]
+    },
+    {
+      "title": "Permit Cancellation",
+      "description": "To be completed when work is finished or conditions can no longer be maintained.",
+      "fields": [
+        {
+          "label": "Work completed / Permit cancelled by",
+          "lines": 1
+        },
+        {
+          "label": "Signature",
+          "lines": 1
+        },
+        {
+          "label": "Date / Time",
+          "lines": 1
+        },
+        {
+          "label": "Any incidents reported",
+          "lines": 1
+        }
+      ]
+    }
+  ]
+}

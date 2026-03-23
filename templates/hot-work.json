@@ -1,0 +1,100 @@
+{
+  "id": "hot-work",
+  "name": "Hot Work Permit",
+  "description": "Required for any work involving welding, cutting, grinding, brazing, or other heat/spark-producing operations.",
+  "colour": "#e74c3c",
+  "sections": [
+    {
+      "title": "General Information",
+      "type": "authoriser",
+      "fields": [
+        { "id": "permit_number", "label": "Permit Number", "type": "text", "required": true },
+        { "id": "date_issued", "label": "Date Issued", "type": "date", "required": true },
+        { "id": "valid_from", "label": "Valid From (Time)", "type": "time", "required": true },
+        { "id": "valid_to", "label": "Valid To (Time)", "type": "time", "required": true },
+        { "id": "location", "label": "Exact Location of Work", "type": "text", "required": true },
+        { "id": "description_of_work", "label": "Description of Work", "type": "textarea", "required": true },
+        { "id": "equipment_used", "label": "Equipment to be Used", "type": "textarea", "required": false }
+      ]
+    },
+    {
+      "title": "Personnel",
+      "type": "authoriser",
+      "fields": [
+        { "id": "authorised_by", "label": "Authorised By (Name)", "type": "text", "required": true },
+        { "id": "authorised_by_position", "label": "Position / Title", "type": "text", "required": true },
+        { "id": "contractor_company", "label": "Contractor / Company", "type": "text", "required": false }
+      ]
+    },
+    {
+      "title": "Pre-Work Precautions",
+      "type": "authoriser",
+      "fields": [
+        { "id": "area_inspected", "label": "Area inspected and cleared of combustible materials", "type": "checkbox" },
+        { "id": "fire_extinguisher", "label": "Fire extinguisher available at work location", "type": "checkbox" },
+        { "id": "combustibles_covered", "label": "Combustible materials covered or protected", "type": "checkbox" },
+        { "id": "fire_watch", "label": "Fire watch person assigned", "type": "checkbox" },
+        { "id": "smoke_detectors", "label": "Smoke/heat detectors isolated (if applicable)", "type": "checkbox" },
+        { "id": "sprinklers_operational", "label": "Sprinkler system operational", "type": "checkbox" },
+        { "id": "ventilation", "label": "Adequate ventilation provided", "type": "checkbox" },
+        { "id": "flammable_gases_tested", "label": "Area tested for flammable gases/vapours", "type": "checkbox" },
+        { "id": "adjacent_areas_checked", "label": "Adjacent areas (above/below/beside) checked", "type": "checkbox" },
+        { "id": "hot_work_screens", "label": "Hot work screens/shields in place", "type": "checkbox" },
+        { "id": "other_precautions", "label": "Other Precautions (specify)", "type": "textarea" }
+      ]
+    },
+    {
+      "title": "PPE Requirements",
+      "type": "authoriser",
+      "fields": [
+        { "id": "ppe_welding_helmet", "label": "Welding helmet / visor", "type": "checkbox" },
+        { "id": "ppe_gloves", "label": "Heat-resistant gloves", "type": "checkbox" },
+        { "id": "ppe_apron", "label": "Flame-resistant apron / clothing", "type": "checkbox" },
+        { "id": "ppe_safety_boots", "label": "Safety boots", "type": "checkbox" },
+        { "id": "ppe_eye_protection", "label": "Eye protection", "type": "checkbox" },
+        { "id": "ppe_ear_protection", "label": "Ear protection", "type": "checkbox" },
+        { "id": "ppe_respiratory", "label": "Respiratory protection", "type": "checkbox" },
+        { "id": "ppe_other", "label": "Other PPE (specify)", "type": "text" }
+      ]
+    },
+    {
+      "title": "Additional Hazards / Controls",
+      "type": "authoriser",
+      "fields": [
+        { "id": "additional_hazards", "label": "Identify any additional hazards", "type": "textarea" },
+        { "id": "additional_controls", "label": "Additional control measures", "type": "textarea" }
+      ]
+    }
+  ],
+  "handwrittenSections": [
+    {
+      "title": "Worker Acknowledgement",
+      "description": "I confirm I have read and understood the conditions of this permit and will comply with all precautions listed.",
+      "fields": [
+        { "label": "Worker Name (Print)", "lines": 1 },
+        { "label": "Worker Signature", "lines": 1 },
+        { "label": "Date / Time", "lines": 1 }
+      ]
+    },
+    {
+      "title": "Post-Work Inspection (Fire Watch)",
+      "description": "To be completed after hot work has ceased. Area must be monitored for at least 60 minutes after work completion.",
+      "fields": [
+        { "label": "Area inspected and safe", "lines": 1 },
+        { "label": "Inspected By (Name)", "lines": 1 },
+        { "label": "Signature", "lines": 1 },
+        { "label": "Date / Time of Inspection", "lines": 1 }
+      ]
+    },
+    {
+      "title": "Permit Cancellation",
+      "description": "To be completed when work is finished or the permit expires.",
+      "fields": [
+        { "label": "Work completed / Permit cancelled by", "lines": 1 },
+        { "label": "Signature", "lines": 1 },
+        { "label": "Date / Time", "lines": 1 },
+        { "label": "Smoke/heat detectors reinstated", "lines": 1 }
+      ]
+    }
+  ]
+}

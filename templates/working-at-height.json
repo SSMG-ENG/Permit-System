@@ -1,0 +1,92 @@
+{
+  "id": "working-at-height",
+  "name": "Working at Height Permit",
+  "description": "Required for any work activity where a person could fall a distance liable to cause personal injury, including use of ladders, scaffolds, and MEWPs.",
+  "colour": "#3498db",
+  "sections": [
+    {
+      "title": "General Information",
+      "type": "authoriser",
+      "fields": [
+        { "id": "permit_number", "label": "Permit Number", "type": "text", "required": true },
+        { "id": "date_issued", "label": "Date Issued", "type": "date", "required": true },
+        { "id": "valid_from", "label": "Valid From (Time)", "type": "time", "required": true },
+        { "id": "valid_to", "label": "Valid To (Time)", "type": "time", "required": true },
+        { "id": "location", "label": "Location of Work", "type": "text", "required": true },
+        { "id": "description_of_work", "label": "Description of Work", "type": "textarea", "required": true },
+        { "id": "height", "label": "Maximum Working Height (metres)", "type": "text", "required": true }
+      ]
+    },
+    {
+      "title": "Access Equipment",
+      "type": "authoriser",
+      "fields": [
+        { "id": "access_scaffold", "label": "Scaffold", "type": "checkbox" },
+        { "id": "access_mewp", "label": "MEWP (cherry picker / scissor lift)", "type": "checkbox" },
+        { "id": "access_ladder", "label": "Ladder / Stepladder", "type": "checkbox" },
+        { "id": "access_roof", "label": "Roof access", "type": "checkbox" },
+        { "id": "access_other", "label": "Other Access Equipment (specify)", "type": "text" },
+        { "id": "scaffold_tag", "label": "Scaffold inspection tag number (if applicable)", "type": "text" },
+        { "id": "scaffold_inspected", "label": "Scaffold inspected and tagged within last 7 days", "type": "checkbox" },
+        { "id": "mewp_inspected", "label": "MEWP inspected and operator trained/certified", "type": "checkbox" }
+      ]
+    },
+    {
+      "title": "Precautions",
+      "type": "authoriser",
+      "fields": [
+        { "id": "edge_protection", "label": "Edge protection / guardrails in place", "type": "checkbox" },
+        { "id": "toe_boards", "label": "Toe boards fitted", "type": "checkbox" },
+        { "id": "safety_nets", "label": "Safety nets in place (if required)", "type": "checkbox" },
+        { "id": "exclusion_zone", "label": "Exclusion zone established below work area", "type": "checkbox" },
+        { "id": "weather_checked", "label": "Weather conditions assessed as suitable", "type": "checkbox" },
+        { "id": "tools_secured", "label": "Tools and materials secured against falling", "type": "checkbox" },
+        { "id": "rescue_plan", "label": "Rescue plan in place for fall from height", "type": "checkbox" },
+        { "id": "fragile_surfaces", "label": "Fragile surfaces identified and protected", "type": "checkbox" },
+        { "id": "other_precautions", "label": "Other Precautions (specify)", "type": "textarea" }
+      ]
+    },
+    {
+      "title": "Personnel",
+      "type": "authoriser",
+      "fields": [
+        { "id": "authorised_by", "label": "Authorised By (Name)", "type": "text", "required": true },
+        { "id": "authorised_by_position", "label": "Position / Title", "type": "text", "required": true },
+        { "id": "contractor_company", "label": "Contractor / Company", "type": "text", "required": false }
+      ]
+    },
+    {
+      "title": "PPE Requirements",
+      "type": "authoriser",
+      "fields": [
+        { "id": "ppe_harness", "label": "Full body harness with lanyard", "type": "checkbox" },
+        { "id": "ppe_helmet", "label": "Safety helmet with chin strap", "type": "checkbox" },
+        { "id": "ppe_boots", "label": "Safety boots (non-slip)", "type": "checkbox" },
+        { "id": "ppe_hi_vis", "label": "Hi-visibility vest / jacket", "type": "checkbox" },
+        { "id": "ppe_gloves", "label": "Gloves", "type": "checkbox" },
+        { "id": "ppe_other", "label": "Other PPE (specify)", "type": "text" }
+      ]
+    }
+  ],
+  "handwrittenSections": [
+    {
+      "title": "Worker Acknowledgement",
+      "description": "I confirm I have received a briefing on the hazards and controls for this work at height activity.",
+      "fields": [
+        { "label": "Worker Name (Print)", "lines": 1 },
+        { "label": "Worker Signature", "lines": 1 },
+        { "label": "Date / Time", "lines": 1 }
+      ]
+    },
+    {
+      "title": "Permit Cancellation",
+      "description": "To be completed when work is finished.",
+      "fields": [
+        { "label": "Work completed / Permit cancelled by", "lines": 1 },
+        { "label": "Signature", "lines": 1 },
+        { "label": "Date / Time", "lines": 1 },
+        { "label": "Area cleared and made safe", "lines": 1 }
+      ]
+    }
+  ]
+}

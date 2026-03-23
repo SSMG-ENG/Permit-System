@@ -1,0 +1,238 @@
+{
+  "id": "electrical-isolation",
+  "name": "Electrical Isolation Permit",
+  "description": "Required for work on or near electrical systems involving isolation, lockout/tagout, and safe working procedures.",
+  "colour": "#f1c40f",
+  "sections": [
+    {
+      "title": "General Information",
+      "type": "authoriser",
+      "fields": [
+        {
+          "id": "permit_number",
+          "label": "Permit Number",
+          "type": "text",
+          "required": true
+        },
+        {
+          "id": "date_issued",
+          "label": "Date Issued",
+          "type": "date",
+          "required": true
+        },
+        {
+          "id": "valid_from",
+          "label": "Valid From (Time)",
+          "type": "time",
+          "required": true
+        },
+        {
+          "id": "valid_to",
+          "label": "Valid To (Time)",
+          "type": "time",
+          "required": true
+        },
+        {
+          "id": "location",
+          "label": "Location of Work",
+          "type": "text",
+          "required": true
+        },
+        {
+          "id": "description_of_work",
+          "label": "Description of Work",
+          "type": "textarea",
+          "required": true
+        }
+      ]
+    },
+    {
+      "title": "Isolation Details",
+      "type": "authoriser",
+      "fields": [
+        {
+          "id": "equipment_isolated",
+          "label": "Equipment / Circuit to be Isolated",
+          "type": "textarea",
+          "required": true
+        },
+        {
+          "id": "isolation_points",
+          "label": "Isolation Point(s) / Breaker Reference(s)",
+          "type": "textarea",
+          "required": true
+        },
+        {
+          "id": "voltage",
+          "label": "Operating Voltage",
+          "type": "text",
+          "required": true
+        },
+        {
+          "id": "isolated_by",
+          "label": "Isolation Carried Out By",
+          "type": "text",
+          "required": false
+        },
+        {
+          "id": "isolation_time",
+          "label": "Time of Isolation",
+          "type": "time",
+          "required": false
+        }
+      ]
+    },
+    {
+      "title": "Safety Checks",
+      "type": "authoriser",
+      "fields": [
+        {
+          "id": "locked_out",
+          "label": "Isolation locked out (LOTO applied)",
+          "type": "checkbox"
+        },
+        {
+          "id": "tagged",
+          "label": "Warning tags / labels applied",
+          "type": "checkbox"
+        },
+        {
+          "id": "tested_dead",
+          "label": "Proved dead at point of work",
+          "type": "checkbox"
+        },
+        {
+          "id": "earths_applied",
+          "label": "Temporary earths applied (if applicable)",
+          "type": "checkbox"
+        },
+        {
+          "id": "adjacent_live",
+          "label": "Adjacent live conductors identified and protected",
+          "type": "checkbox"
+        },
+        {
+          "id": "barriers_erected",
+          "label": "Barriers / warning signs erected",
+          "type": "checkbox"
+        },
+        {
+          "id": "capacitors_discharged",
+          "label": "Capacitors discharged (if applicable)",
+          "type": "checkbox"
+        },
+        {
+          "id": "other_precautions",
+          "label": "Other Precautions (specify)",
+          "type": "textarea"
+        }
+      ]
+    },
+    {
+      "title": "Personnel",
+      "type": "authoriser",
+      "fields": [
+        {
+          "id": "authorised_by",
+          "label": "Authorised By (Name)",
+          "type": "text",
+          "required": true
+        },
+        {
+          "id": "authorised_by_position",
+          "label": "Position / Title",
+          "type": "text",
+          "required": true
+        },
+        {
+          "id": "competent_person",
+          "label": "Competent Person (Electrical)",
+          "type": "text",
+          "required": true
+        }
+      ]
+    },
+    {
+      "title": "PPE Requirements",
+      "type": "authoriser",
+      "fields": [
+        {
+          "id": "ppe_insulated_gloves",
+          "label": "Insulated gloves (rated for voltage)",
+          "type": "checkbox"
+        },
+        {
+          "id": "ppe_face_shield",
+          "label": "Arc flash face shield",
+          "type": "checkbox"
+        },
+        {
+          "id": "ppe_arc_clothing",
+          "label": "Arc-rated clothing",
+          "type": "checkbox"
+        },
+        {
+          "id": "ppe_safety_boots",
+          "label": "Insulated safety boots",
+          "type": "checkbox"
+        },
+        {
+          "id": "ppe_insulated_tools",
+          "label": "Insulated tools",
+          "type": "checkbox"
+        },
+        {
+          "id": "ppe_other",
+          "label": "Other PPE (specify)",
+          "type": "text"
+        }
+      ]
+    }
+  ],
+  "handwrittenSections": [
+    {
+      "title": "Worker Acknowledgement",
+      "description": "I confirm the isolation has been proved dead at the point of work and I understand the safe system of work.",
+      "fields": [
+        {
+          "label": "Worker Name (Print)",
+          "lines": 1
+        },
+        {
+          "label": "Worker Signature",
+          "lines": 1
+        },
+        {
+          "label": "Date / Time",
+          "lines": 1
+        }
+      ]
+    },
+    {
+      "title": "De-Isolation / Permit Cancellation",
+      "description": "To be completed when work is finished and the system is to be re-energised.",
+      "fields": [
+        {
+          "label": "All workers clear of equipment",
+          "lines": 1
+        },
+        {
+          "label": "Temporary earths removed",
+          "lines": 1
+        },
+        {
+          "label": "LOTO locks removed by",
+          "lines": 1
+        },
+        {
+          "label": "De-isolated by (Name & Signature)",
+          "lines": 1
+        },
+        {
+          "label": "Date / Time of De-isolation",
+          "lines": 2
+        }
+      ]
+    }
+  ]
+}

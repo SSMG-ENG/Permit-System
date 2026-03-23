@@ -1,0 +1,289 @@
+{
+  "id": "confined-space",
+  "name": "Confined Space Entry Permit",
+  "description": "Required before any person enters a confined space such as tanks, vessels, pits, silos, or enclosed drains.",
+  "colour": "#34e820",
+  "sections": [
+    {
+      "title": "General Information",
+      "type": "authoriser",
+      "fields": [
+        {
+          "id": "permit_number",
+          "label": "Permit Number",
+          "type": "text",
+          "required": true
+        },
+        {
+          "id": "date_issued",
+          "label": "Date Issued",
+          "type": "date",
+          "required": true
+        },
+        {
+          "id": "valid_from",
+          "label": "Valid From (Time)",
+          "type": "time",
+          "required": true
+        },
+        {
+          "id": "valid_to",
+          "label": "Valid To (Time)",
+          "type": "time",
+          "required": true
+        },
+        {
+          "id": "location",
+          "label": "Confined Space Location / Name",
+          "type": "text",
+          "required": true
+        },
+        {
+          "id": "description_of_work",
+          "label": "Description of Work to be Carried Out",
+          "type": "textarea",
+          "required": true
+        },
+        {
+          "id": "reason_for_entry",
+          "label": "Reason for Entry",
+          "type": "textarea",
+          "required": true
+        }
+      ]
+    },
+    {
+      "title": "Personnel",
+      "type": "authoriser",
+      "fields": [
+        {
+          "id": "authorised_by",
+          "label": "Authorised By (Name)",
+          "type": "text",
+          "required": true
+        },
+        {
+          "id": "authorised_by_position",
+          "label": "Position / Title",
+          "type": "text",
+          "required": true
+        },
+        {
+          "id": "standby_person",
+          "label": "Standby / Top Person",
+          "type": "text",
+          "required": true
+        },
+        {
+          "id": "contractor_company",
+          "label": "Contractor / Company",
+          "type": "text",
+          "required": false
+        }
+      ]
+    },
+    {
+      "title": "Atmospheric Testing",
+      "type": "authoriser",
+      "fields": [
+        {
+          "id": "oxygen_level",
+          "label": "Oxygen Level (%)",
+          "type": "text",
+          "required": true,
+          "placeholder": "Safe range: 19.5% – 23.5%"
+        },
+        {
+          "id": "lel",
+          "label": "Lower Explosive Limit (LEL %)",
+          "type": "text",
+          "required": true,
+          "placeholder": "Must be < 10%"
+        },
+        {
+          "id": "h2s",
+          "label": "Hydrogen Sulphide (H₂S) ppm",
+          "type": "text",
+          "required": false
+        },
+        {
+          "id": "co",
+          "label": "Carbon Monoxide (CO) ppm",
+          "type": "text",
+          "required": false
+        },
+        {
+          "id": "other_gases",
+          "label": "Other Gases Tested",
+          "type": "text"
+        },
+        {
+          "id": "tested_by",
+          "label": "Tested By (Name)",
+          "type": "text",
+          "required": true
+        },
+        {
+          "id": "test_time",
+          "label": "Time of Test",
+          "type": "time",
+          "required": true
+        },
+        {
+          "id": "continuous_monitoring",
+          "label": "Continuous atmospheric monitoring in place",
+          "type": "checkbox"
+        }
+      ]
+    },
+    {
+      "title": "Pre-Entry Precautions",
+      "type": "authoriser",
+      "fields": [
+        {
+          "id": "space_isolated",
+          "label": "Space isolated from all energy sources (LOTO)",
+          "type": "checkbox"
+        },
+        {
+          "id": "space_drained",
+          "label": "Space drained / purged / cleaned",
+          "type": "checkbox"
+        },
+        {
+          "id": "ventilation_provided",
+          "label": "Mechanical ventilation provided",
+          "type": "checkbox"
+        },
+        {
+          "id": "rescue_plan",
+          "label": "Rescue plan established and communicated",
+          "type": "checkbox"
+        },
+        {
+          "id": "rescue_equipment",
+          "label": "Rescue equipment available (harness, tripod, lifeline)",
+          "type": "checkbox"
+        },
+        {
+          "id": "communication",
+          "label": "Communication system established",
+          "type": "checkbox"
+        },
+        {
+          "id": "lighting",
+          "label": "Adequate lighting (intrinsically safe if required)",
+          "type": "checkbox"
+        },
+        {
+          "id": "entry_exit_clear",
+          "label": "Entry/exit points clear and adequate",
+          "type": "checkbox"
+        },
+        {
+          "id": "emergency_services_notified",
+          "label": "Emergency services notified (if required)",
+          "type": "checkbox"
+        },
+        {
+          "id": "other_precautions",
+          "label": "Other Precautions (specify)",
+          "type": "textarea"
+        }
+      ]
+    },
+    {
+      "title": "PPE Requirements",
+      "type": "authoriser",
+      "fields": [
+        {
+          "id": "ppe_harness",
+          "label": "Full body harness with lifeline",
+          "type": "checkbox"
+        },
+        {
+          "id": "ppe_helmet",
+          "label": "Safety helmet",
+          "type": "checkbox"
+        },
+        {
+          "id": "ppe_boots",
+          "label": "Safety boots",
+          "type": "checkbox"
+        },
+        {
+          "id": "ppe_gloves",
+          "label": "Protective gloves",
+          "type": "checkbox"
+        },
+        {
+          "id": "ppe_respiratory",
+          "label": "Respiratory protection (specify type)",
+          "type": "text"
+        },
+        {
+          "id": "ppe_coveralls",
+          "label": "Coveralls / protective clothing",
+          "type": "checkbox"
+        },
+        {
+          "id": "ppe_other",
+          "label": "Other PPE (specify)",
+          "type": "text"
+        }
+      ]
+    }
+  ],
+  "handwrittenSections": [
+    {
+      "title": "Entrant Acknowledgement",
+      "description": "Each person entering the confined space must sign below confirming they understand the hazards and controls.",
+      "fields": [
+        {
+          "label": "Name (Print)",
+          "lines": 1
+        },
+        {
+          "label": "Signature",
+          "lines": 1
+        },
+        {
+          "label": "Time In",
+          "lines": 1
+        },
+        {
+          "label": "Time Out",
+          "lines": 1
+        }
+      ]
+    },
+    {
+      "title": "Additional Entrants",
+      "description": "",
+      "fields": [
+        {
+          "label": "Name / Signature / Time In / Time Out",
+          "lines": 4
+        }
+      ]
+    },
+    {
+      "title": "Permit Cancellation",
+      "description": "To be completed when all persons have exited and work is complete.",
+      "fields": [
+        {
+          "label": "All persons exited and accounted for",
+          "lines": 1
+        },
+        {
+          "label": "Cancelled By (Name & Signature)",
+          "lines": 1
+        },
+        {
+          "label": "Date / Time",
+          "lines": 1
+        }
+      ]
+    }
+  ]
+}
