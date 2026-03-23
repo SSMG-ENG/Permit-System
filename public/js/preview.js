@@ -89,8 +89,7 @@ function buildPermitHtml(template, data, isBlank) {
   // Header
   html += `
     <div class="permit-header">
-      <img src="/img/logo.png" alt="Scottish Shellfish" class="permit-logo">
-      <div class="company-name">Scottish Shellfish</div>
+      <img src="/img/logo.png" alt="Company Logo" class="permit-logo">
       <h1>${escapeHtml(template.name)}</h1>
       <div class="permit-subtitle">Permit to Work – ${isBlank ? 'Blank Copy' : 'Issued Permit'}</div>
     </div>
