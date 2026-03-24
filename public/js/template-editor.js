@@ -9,8 +9,44 @@ async function loadAdmin() {
   const list = document.getElementById('admin-template-list');
   list.innerHTML = '<p>Loading...</p>';
 
-  // No need to add Permit Log button here; it's now in the admin-toolbar in HTML
+  // ── Contractor Settings panel ───────────────────────
+  const settingsPanel = document.getElementById('contractor-settings-panel');
+  settingsPanel.innerHTML = '<p style="color:var(--text-muted);font-size:0.85rem;">Loading settings...</p>';
 
+  try {
+    const settings = await API.getSettings();
+    const currentPath = settings.contractorsFile || '';
+    settingsPanel.innerHTML = `
+      <div class="contractor-settings-card">
+        <div class="contractor-settings-header">
+          <h3>Approved Contractors</h3>
+          <p>Specify the path to an Excel file (.xlsx/.xls) containing approved contractors.
+             The file must have a <strong>Contractors ID</strong> column and a <strong>Company Name</strong> column.</p>
+        </div>
+        <div class="contractor-settings-body">
+          <div class="form-group" style="margin-bottom:0.75rem;">
+            <label for="contractors-file-path">Excel File Path</label>
+            <input type="text" id="contractors-file-path" placeholder="e.g. C:\\Users\\You\\Documents\\contractors.xlsx"
+              value="${escapeAttr(currentPath)}" style="font-family:monospace;font-size:0.85rem;">
+          </div>
+          <div class="contractor-settings-actions">
+            <button class="btn btn-primary btn-sm" onclick="saveContractorSettings()">Save Path</button>
+            <button class="btn btn-outline btn-sm" onclick="testContractorFile()" id="test-contractors-btn">Test & Reload</button>
+            <span id="contractors-status" class="contractors-status"></span>
+          </div>
+        </div>
+      </div>
+    `;
+
+    // Show current contractor count if file is set
+    if (currentPath) {
+      updateContractorStatus();
+    }
+  } catch (e) {
+    settingsPanel.innerHTML = `<p style="color:var(--danger);font-size:0.85rem;">Could not load settings: ${escapeHtml(e.message)}</p>`;
+  }
+
+  // ── Template list ───────────────────────────────────
   try {
     const templates = await API.getTemplates();
     if (templates.length === 0) {
@@ -33,6 +69,65 @@ async function loadAdmin() {
   } catch (e) {
     list.innerHTML = `<p style="color:var(--danger)">Error: ${escapeHtml(e.message)}</p>`;
   }
+}
+
+async function saveContractorSettings() {
+  const input = document.getElementById('contractors-file-path');
+  if (!input) return;
+  const filePath = input.value.trim();
+  const status = document.getElementById('contractors-status');
+  try {
+    await API.saveSettings({ contractorsFile: filePath });
+    if (status) status.innerHTML = '<span style="color:var(--success)">✓ Saved</span>';
+    // Reload the contractors list in memory
+    if (filePath) {
+      await reloadContractors();
+    } else {
+      approvedContractors = [];
+      if (status) status.innerHTML = '<span style="color:var(--success)">✓ Saved — no file set</span>';
+    }
+  } catch (e) {
+    if (status) status.innerHTML = `<span style="color:var(--danger)">✗ ${escapeHtml(e.message)}</span>`;
+  }
+}
+
+async function testContractorFile() {
+  const btn = document.getElementById('test-contractors-btn');
+  const status = document.getElementById('contractors-status');
+  if (btn) btn.disabled = true;
+  if (status) status.innerHTML = '<span style="color:var(--text-muted)">Loading…</span>';
+  try {
+    await reloadContractors();
+    if (status) {
+      if (approvedContractors.length > 0) {
+        status.innerHTML = `<span style="color:var(--success)">✓ ${approvedContractors.length} contractor${approvedContractors.length !== 1 ? 's' : ''} loaded</span>`;
+      } else {
+        status.innerHTML = '<span style="color:var(--warning)">⚠ File read OK but no contractors found</span>';
+      }
+    }
+  } catch (e) {
+    if (status) status.innerHTML = `<span style="color:var(--danger)">✗ ${escapeHtml(e.message)}</span>`;
+  } finally {
+    if (btn) btn.disabled = false;
+  }
+}
+
+async function updateContractorStatus() {
+  const status = document.getElementById('contractors-status');
+  if (!status) return;
+  try {
+    const contractors = await API.getContractors();
+    approvedContractors = contractors;
+    status.innerHTML = contractors.length > 0
+      ? `<span style="color:var(--success)">✓ ${contractors.length} contractor${contractors.length !== 1 ? 's' : ''} loaded</span>`
+      : '<span style="color:var(--warning)">⚠ No contractors found in file</span>';
+  } catch (e) {
+    status.innerHTML = `<span style="color:var(--danger)">✗ ${escapeHtml(e.message)}</span>`;
+  }
+}
+
+async function reloadContractors() {
+  approvedContractors = await loadApprovedContractors(true);
 }
 
 async function deleteTemplateConfirm(id, name) {

@@ -42,4 +42,32 @@ const API = {
     if (!res.ok) throw new Error('Failed to delete template');
     return res.json();
   },
+
+  async getSettings() {
+    const res = await fetch('/api/settings');
+    if (!res.ok) throw new Error('Failed to load settings');
+    return res.json();
+  },
+
+  async saveSettings(data) {
+    const res = await fetch('/api/settings?admin=1234', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    });
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err.error || 'Failed to save settings');
+    }
+    return res.json();
+  },
+
+  async getContractors() {
+    const res = await fetch('/api/contractors');
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err.error || 'Failed to load contractors');
+    }
+    return res.json();
+  },
 };
