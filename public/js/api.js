@@ -1,5 +1,42 @@
 /* ── API helper module ──────────────────────────────────── */
 const API = {
+  getAdminToken() {
+    return sessionStorage.getItem('admin_token') || '';
+  },
+
+  adminHeaders() {
+    return {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${this.getAdminToken()}`
+    };
+  },
+
+  async login(password) {
+    const res = await fetch('/api/admin/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ password }),
+    });
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err.error || 'Login failed');
+    }
+    const { token } = await res.json();
+    sessionStorage.setItem('admin_token', token);
+    return token;
+  },
+
+  logout() {
+    const token = this.getAdminToken();
+    sessionStorage.removeItem('admin_token');
+    if (token) {
+      fetch('/api/admin/logout', {
+        method: 'POST',
+        headers: { 'Authorization': `Bearer ${token}` }
+      }).catch(() => {});
+    }
+  },
+
   async getTemplates() {
     const res = await fetch('/api/templates');
     if (!res.ok) throw new Error('Failed to load templates');
@@ -15,7 +52,7 @@ const API = {
   async createTemplate(template) {
     const res = await fetch('/api/templates', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: this.adminHeaders(),
       body: JSON.stringify(template),
     });
     if (!res.ok) {
@@ -28,7 +65,7 @@ const API = {
   async updateTemplate(id, template) {
     const res = await fetch(`/api/templates/${encodeURIComponent(id)}`, {
       method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
+      headers: this.adminHeaders(),
       body: JSON.stringify(template),
     });
     if (!res.ok) throw new Error('Failed to update template');
@@ -38,6 +75,7 @@ const API = {
   async deleteTemplate(id) {
     const res = await fetch(`/api/templates/${encodeURIComponent(id)}`, {
       method: 'DELETE',
+      headers: { 'Authorization': `Bearer ${this.getAdminToken()}` },
     });
     if (!res.ok) throw new Error('Failed to delete template');
     return res.json();
@@ -50,9 +88,9 @@ const API = {
   },
 
   async saveSettings(data) {
-    const res = await fetch('/api/settings?admin=1234', {
+    const res = await fetch('/api/settings', {
       method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
+      headers: this.adminHeaders(),
       body: JSON.stringify(data),
     });
     if (!res.ok) {
