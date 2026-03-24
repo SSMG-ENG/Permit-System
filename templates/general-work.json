@@ -43,6 +43,11 @@
           "label": "Description of Work",
           "type": "textarea",
           "required": true
+        },
+        {
+          "id": "rams_attached_available",
+          "label": "RAMS attached and available?",
+          "type": "checkbox"
         }
       ]
     },
