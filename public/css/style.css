@@ -990,6 +990,8 @@ body {
     margin-bottom: 3px !important;
   }
   .permit-handwritten-field-pair {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
     gap: 4px !important;
     margin-bottom: 3px !important;
   }
