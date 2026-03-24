@@ -14,7 +14,9 @@
         { "id": "valid_to", "label": "Valid To (Time)", "type": "time", "required": true },
         { "id": "location", "label": "Exact Location of Work", "type": "text", "required": true },
         { "id": "description_of_work", "label": "Description of Work", "type": "textarea", "required": true },
-        { "id": "equipment_used", "label": "Equipment to be Used", "type": "textarea", "required": false }
+        { "id": "equipment_used", "label": "Equipment to be Used", "type": "textarea", "required": false },
+        { "id": "contractor_company", "label": "Contractor / Company", "type": "text", "required": false },
+        { "id": "rams_attached_available", "label": "RAMS attached and available?", "type": "checkbox" }
       ]
     },
     {
@@ -22,8 +24,7 @@
       "type": "authoriser",
       "fields": [
         { "id": "authorised_by", "label": "Authorised By (Name)", "type": "text", "required": true },
-        { "id": "authorised_by_position", "label": "Position / Title", "type": "text", "required": true },
-        { "id": "contractor_company", "label": "Contractor / Company", "type": "text", "required": false }
+        { "id": "authorised_by_position", "label": "Position / Title", "type": "text", "required": true }
       ]
     },
     {
@@ -64,21 +65,6 @@
         { "id": "additional_hazards", "label": "Identify any additional hazards", "type": "textarea" },
         { "id": "additional_controls", "label": "Additional control measures", "type": "textarea" }
       ]
-    },
-    {
-      "title": "Inspection Controls",
-      "type": "authoriser",
-      "description": "These controls are <i><strong>mandatory</strong></i> for at least 2 hours after completion of work",
-      "fields": [
-        { "id": "inspection_1_time", "label": "Time of 1st Inspection", "type": "time", "required": false },
-        { "id": "inspection_1_signature", "label": "Signature", "type": "text", "required": false },
-        { "id": "inspection_2_time", "label": "Time of 2nd Inspection", "type": "time", "required": false },
-        { "id": "inspection_2_signature", "label": "Signature", "type": "text", "required": false },
-        { "id": "inspection_3_time", "label": "Time of 3rd Inspection", "type": "time", "required": false },
-        { "id": "inspection_3_signature", "label": "Signature", "type": "text", "required": false },
-        { "id": "inspection_4_time", "label": "Time of 4th Inspection", "type": "time", "required": false },
-        { "id": "inspection_4_signature", "label": "Signature", "type": "text", "required": false }
-      ]
     }
   ],
   "handwrittenSections": [
@@ -95,10 +81,14 @@
       "title": "Post-Work Inspection (Fire Watch)",
       "description": "To be completed after hot work has ceased. Area must be monitored for at least 60 minutes after work completion.",
       "fields": [
-        { "label": "Area inspected and safe", "lines": 1 },
-        { "label": "Inspected By (Name)", "lines": 1 },
+        { "label": "Time of 1st Inspection", "lines": 1, "inlineWithNext": true },
         { "label": "Signature", "lines": 1 },
-        { "label": "Date / Time of Inspection", "lines": 1 }
+        { "label": "Time of 2nd Inspection", "lines": 1, "inlineWithNext": true },
+        { "label": "Signature", "lines": 1 },
+        { "label": "Time of 3rd Inspection", "lines": 1, "inlineWithNext": true },
+        { "label": "Signature", "lines": 1 },
+        { "label": "Time of 4th Inspection", "lines": 1, "inlineWithNext": true },
+        { "label": "Signature", "lines": 1 }
       ]
     },
     {

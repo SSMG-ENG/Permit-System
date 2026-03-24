@@ -186,7 +186,26 @@ function buildPermitHtml(template, data, isBlank) {
         html += `<div class="permit-handwritten-description">${escapeHtml(section.description)}</div>`;
       }
       if (section.fields) {
-        section.fields.forEach(f => {
+        for (let i = 0; i < section.fields.length; i++) {
+          const f = section.fields[i];
+
+          if (f.inlineWithNext && section.fields[i + 1]) {
+            const next = section.fields[i + 1];
+            html += `<div class="permit-handwritten-field-pair">`;
+            [f, next].forEach(pairField => {
+              html += `<div class="permit-handwritten-field permit-handwritten-field-pair-item">`;
+              html += `<div class="permit-handwritten-field-label">${escapeHtml(pairField.label)}:</div>`;
+              const pairLines = pairField.lines || 1;
+              for (let j = 0; j < pairLines; j++) {
+                html += `<div class="permit-handwritten-line"></div>`;
+              }
+              html += `</div>`;
+            });
+            html += `</div>`;
+            i++;
+            continue;
+          }
+
           html += `<div class="permit-handwritten-field">`;
           if (f.type === 'checkbox') {
             html += `<div class="permit-checkbox-row"><span class="permit-checkbox"></span><span>${escapeHtml(f.label)}</span></div>`;
@@ -198,7 +217,7 @@ function buildPermitHtml(template, data, isBlank) {
             }
           }
           html += `</div>`;
-        });
+        }
       }
       html += `</div>`;
     });

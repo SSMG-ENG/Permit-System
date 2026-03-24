@@ -43,6 +43,17 @@
           "label": "Description of Work",
           "type": "textarea",
           "required": true
+        },
+        {
+          "id": "contractor_company",
+          "label": "Contractor / Company",
+          "type": "text",
+          "required": false
+        },
+        {
+          "id": "rams_attached_available",
+          "label": "RAMS attached and available?",
+          "type": "checkbox"
         }
       ]
     },
@@ -143,12 +154,6 @@
           "label": "Position / Title",
           "type": "text",
           "required": true
-        },
-        {
-          "id": "contractor_company",
-          "label": "Contractor / Company",
-          "type": "text",
-          "required": false
         },
         {
           "id": "competent_person",

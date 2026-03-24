@@ -163,7 +163,9 @@ async function loadPermitLog() {
   const area = document.getElementById('permit-log-table-area');
   area.innerHTML = '<p>Loading log...</p>';
   try {
-    const res = await fetch('/api/permit-log?admin=1234');
+    const res = await fetch('/api/permit-log', {
+      headers: { 'Authorization': `Bearer ${API.getAdminToken()}` }
+    });
     if (!res.ok) throw new Error('Failed to fetch log');
     const log = await res.json();
     if (!Array.isArray(log) || log.length === 0) {
@@ -370,6 +372,12 @@ function escapeAttr(str) {
 }
 
 // ── Admin password protection ───────────────────────────
+function resetPermitNumbers() {
+  localStorage.removeItem('permit_numbers');
+  currentGeneratedPermitNumber = null;
+  showToast('Permit numbers reset; next permit starts at 1', 'success');
+}
+
 function promptAdminPassword() {
   const backdrop = document.createElement('div');
   backdrop.className = 'field-type-modal-backdrop';
@@ -396,14 +404,16 @@ function promptAdminPassword() {
 
 function attemptAdminUnlock() {
   const pwd = document.getElementById('admin-password').value;
-  if (pwd === '1234') {
-    adminUnlocked = true;
-    document.querySelector('.field-type-modal-backdrop').remove();
-    navigateTo(currentView === 'home' ? 'admin' : currentView);
-  } else {
-    showToast('Incorrect password', 'error');
-    document.getElementById('admin-password').value = '';
-  }
+  API.login(pwd)
+    .then(() => {
+      adminUnlocked = true;
+      document.querySelector('.field-type-modal-backdrop').remove();
+      navigateTo(currentView === 'home' ? 'admin' : currentView);
+    })
+    .catch(() => {
+      showToast('Incorrect password', 'error');
+      document.getElementById('admin-password').value = '';
+    });
 }
 
 // ── Initialise ──────────────────────────────────────────

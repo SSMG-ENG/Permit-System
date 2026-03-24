@@ -1,7 +1,9 @@
 const express = require('express');
 const fs = require('fs');
 const path = require('path');
+const crypto = require('crypto');
 const XLSX = require('xlsx');
+const helmet = require('helmet');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -15,8 +17,44 @@ let contractorsCache = {
   contractors: []
 };
 
+app.use(helmet({ contentSecurityPolicy: false }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
+
+// ── Admin session management ────────────────────────────────
+const adminSessions = new Map();
+const SESSION_TTL = 8 * 60 * 60 * 1000; // 8 hours
+
+function requireAdmin(req, res, next) {
+  const auth = req.headers['authorization'] || '';
+  const token = auth.startsWith('Bearer ') ? auth.slice(7).trim() : '';
+  if (!token || !adminSessions.has(token)) {
+    return res.status(403).json({ error: 'Admin access required' });
+  }
+  if (Date.now() > adminSessions.get(token)) {
+    adminSessions.delete(token);
+    return res.status(403).json({ error: 'Session expired, please log in again' });
+  }
+  next();
+}
+
+app.post('/api/admin/login', (req, res) => {
+  const { password } = req.body || {};
+  const settings = readSettings();
+  const adminPassword = settings.adminPassword || '1234';
+  if (!password || password !== adminPassword) {
+    return res.status(401).json({ error: 'Incorrect password' });
+  }
+  const token = crypto.randomUUID();
+  adminSessions.set(token, Date.now() + SESSION_TTL);
+  res.json({ token });
+});
+
+app.post('/api/admin/logout', requireAdmin, (req, res) => {
+  const token = (req.headers['authorization'] || '').slice(7).trim();
+  adminSessions.delete(token);
+  res.json({ ok: true });
+});
 
 // Ensure required directories exist
 [TEMPLATES_DIR, DATA_DIR].forEach(dir => {
@@ -107,7 +145,7 @@ app.get('/api/templates/:id', (req, res) => {
 });
 
 // Create a new template
-app.post('/api/templates', (req, res) => {
+app.post('/api/templates', requireAdmin, (req, res) => {
   const template = req.body;
   if (!template.id || !template.name) {
     return res.status(400).json({ error: 'Template must have an id and name' });
@@ -122,7 +160,7 @@ app.post('/api/templates', (req, res) => {
 });
 
 // Update an existing template
-app.put('/api/templates/:id', (req, res) => {
+app.put('/api/templates/:id', requireAdmin, (req, res) => {
   const id = sanitizeId(req.params.id);
   const filePath = path.join(TEMPLATES_DIR, `${id}.json`);
   if (!fs.existsSync(filePath)) return res.status(404).json({ error: 'Template not found' });
@@ -133,7 +171,7 @@ app.put('/api/templates/:id', (req, res) => {
 });
 
 // Delete a template
-app.delete('/api/templates/:id', (req, res) => {
+app.delete('/api/templates/:id', requireAdmin, (req, res) => {
   const id = sanitizeId(req.params.id);
   const filePath = path.join(TEMPLATES_DIR, `${id}.json`);
   if (!fs.existsSync(filePath)) return res.status(404).json({ error: 'Template not found' });
@@ -153,8 +191,16 @@ const LOG_FILE = path.join(__dirname, 'logs', 'permit-log.jsonl');
 
 // Append a log entry (called when a permit is printed)
 app.post('/api/permit-log', (req, res) => {
-  const entry = req.body;
-  entry.timestamp = new Date().toISOString();
+  const body = req.body || {};
+  // Only store known safe fields — never trust raw client data
+  const entry = {
+    timestamp: new Date().toISOString(),
+    permit_number: typeof body.permit_number === 'string' ? body.permit_number.substring(0, 64) : '',
+    template_id: typeof body.template_id === 'string' ? body.template_id.substring(0, 64) : '',
+    template_name: typeof body.template_name === 'string' ? body.template_name.substring(0, 128) : '',
+    type: body.type === 'filled' || body.type === 'blank' ? body.type : 'unknown',
+    form_data: (body.type === 'filled' && body.form_data && typeof body.form_data === 'object') ? body.form_data : null,
+  };
   try {
     fs.appendFileSync(LOG_FILE, JSON.stringify(entry) + '\n', 'utf8');
     res.json({ success: true });
@@ -163,10 +209,8 @@ app.post('/api/permit-log', (req, res) => {
   }
 });
 
-// Get all log entries (admin only, simple password check)
-app.get('/api/permit-log', (req, res) => {
-  // For demo: require ?admin=1234
-  if (req.query.admin !== '1234') return res.status(403).json({ error: 'Forbidden' });
+// Get all log entries (admin only)
+app.get('/api/permit-log', requireAdmin, (req, res) => {
   try {
     if (!fs.existsSync(LOG_FILE)) return res.json([]);
     const lines = fs.readFileSync(LOG_FILE, 'utf8').split('\n').filter(line => line.trim().length > 0);
@@ -186,12 +230,21 @@ app.get('/api/settings', (req, res) => {
   res.json(readSettings());
 });
 
-// Save settings (admin password required)
-app.put('/api/settings', (req, res) => {
-  if (req.query.admin !== '1234') return res.status(403).json({ error: 'Forbidden' });
+// Save settings (admin required)
+app.put('/api/settings', requireAdmin, (req, res) => {
   const { contractorsFile } = req.body;
   if (contractorsFile !== undefined && typeof contractorsFile !== 'string') {
     return res.status(400).json({ error: 'contractorsFile must be a string' });
+  }
+  // Validate path: no traversal, must be absolute path to an xlsx/xls/csv file
+  if (contractorsFile) {
+    const ext = path.extname(contractorsFile).toLowerCase();
+    if (!['.xlsx', '.xls', '.csv'].includes(ext)) {
+      return res.status(400).json({ error: 'contractorsFile must be .xlsx, .xls, or .csv' });
+    }
+    if (contractorsFile.includes('..')) {
+      return res.status(400).json({ error: 'Invalid file path' });
+    }
   }
   const settings = readSettings();
   settings.contractorsFile = (contractorsFile || '').trim();

@@ -49,6 +49,17 @@
           "label": "Reason for Entry",
           "type": "textarea",
           "required": true
+        },
+        {
+          "id": "contractor_company",
+          "label": "Contractor / Company",
+          "type": "text",
+          "required": false
+        },
+        {
+          "id": "rams_attached_available",
+          "label": "RAMS attached and available?",
+          "type": "checkbox"
         }
       ]
     },
@@ -73,12 +84,6 @@
           "label": "Standby / Top Person",
           "type": "text",
           "required": true
-        },
-        {
-          "id": "contractor_company",
-          "label": "Contractor / Company",
-          "type": "text",
-          "required": false
         }
       ]
     },
