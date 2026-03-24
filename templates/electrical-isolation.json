@@ -145,6 +145,12 @@
           "required": true
         },
         {
+          "id": "contractor_company",
+          "label": "Contractor / Company",
+          "type": "text",
+          "required": false
+        },
+        {
           "id": "competent_person",
           "label": "Competent Person (Electrical)",
           "type": "text",

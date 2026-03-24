@@ -4,6 +4,8 @@ let currentView = 'home';
 let currentTemplateId = null;
 let currentTemplate = null;
 let adminUnlocked = false;
+let approvedContractors = [];  // Loaded from Excel on startup
+let contractorsLoadPromise = null;
 
 // ── Permit number generation ────────────────────────────
 const TEMPLATE_CODES = {
@@ -35,6 +37,27 @@ function commitPermitNumber(templateId, permitNumber) {
   const templateUsed = used[templateId] || 0;
   used[templateId] = templateUsed + 1;
   localStorage.setItem('permit_numbers', JSON.stringify(used));
+}
+
+function loadApprovedContractors(force = false) {
+  if (!force && contractorsLoadPromise) {
+    return contractorsLoadPromise;
+  }
+
+  contractorsLoadPromise = API.getContractors()
+    .then(contractors => {
+      approvedContractors = Array.isArray(contractors) ? contractors : [];
+      return approvedContractors;
+    })
+    .catch(() => {
+      approvedContractors = [];
+      return approvedContractors;
+    })
+    .finally(() => {
+      contractorsLoadPromise = null;
+    });
+
+  return contractorsLoadPromise;
 }
 
 // ── Navigation ──────────────────────────────────────────
@@ -386,4 +409,5 @@ function attemptAdminUnlock() {
 // ── Initialise ──────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
   navigateTo('home');
+  loadApprovedContractors();
 });

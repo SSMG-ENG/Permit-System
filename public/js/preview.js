@@ -67,6 +67,11 @@ function shouldPairFields(field, nextField) {
     return true;
   }
   
+  // Inspection time + Signature
+  if (labelLower.includes('inspection') && nextLower.includes('signature')) {
+    return true;
+  }
+  
   // Location + Area/Zone
   if (labelLower.includes('location') && labelLower.includes('area')) {
     return true;
@@ -83,50 +88,42 @@ function shouldPairFields(field, nextField) {
   return false;
 }
 
-function buildPermitHtml(template, data, isBlank) {
-  let html = '';
+function buildSectionHtml(section, data, isBlank) {
+  let html = `<div class="permit-section"><h2>${escapeHtml(section.title)}</h2>`;
 
-  // Header
-  html += `
-    <div class="permit-header">
-      <img src="/img/logo.png" alt="Company Logo" class="permit-logo">
-      <h1>${escapeHtml(template.name)}</h1>
-    </div>
-  `;
+  if (section.description) {
+    html += `<div class="permit-section-description">${section.description}</div>`;
+  }
 
-  // Authoriser sections
-  template.sections.forEach(section => {
-    html += `<div class="permit-section"><h2>${escapeHtml(section.title)}</h2>`;
+  const fields = section.fields;
+  let i = 0;
+  // Track whether we're inside a checkbox grid
+  let inCheckboxGrid = false;
 
-    // Group fields for 2-column layout where appropriate
-    const fields = section.fields;
-    let i = 0;
-    while (i < fields.length) {
-      const field = fields[i];
-      const nextField = fields[i + 1];
-      
-      // Check if we should pair this field with the next one
-      // Pair if: both are non-checkboxes and next field is suitable for pairing
+  while (i < fields.length) {
+    const field = fields[i];
+    const nextField = fields[i + 1];
+
+    if (field.type === 'checkbox') {
+      // Open checkbox grid if not already open
+      if (!inCheckboxGrid) {
+        html += `<div class="permit-checkbox-grid">`;
+        inCheckboxGrid = true;
+      }
+      const checked = !isBlank && data[field.id];
+      html += `<div class="permit-checkbox-row"><span class="permit-checkbox ${checked ? 'checked' : ''}"></span><span>${escapeHtml(field.label)}</span></div>`;
+      i++;
+    } else {
+      // Close checkbox grid if one was open
+      if (inCheckboxGrid) {
+        html += `</div>`;
+        inCheckboxGrid = false;
+      }
+
       const shouldPair = shouldPairFields(field, nextField);
-      
-      if (field.type === 'checkbox') {
-        const checked = !isBlank && data[field.id];
-        html += `
-          <div class="permit-checkbox-row">
-            <span class="permit-checkbox ${checked ? 'checked' : ''}"></span>
-            <span>${escapeHtml(field.label)}</span>
-          </div>
-        `;
-        i++;
-      } else if (shouldPair && nextField && nextField.type !== 'checkbox') {
-        // Render two fields in a grid
-        const value1 = (field.id === 'permit_number') 
-          ? (data[field.id] || '')
-          : (isBlank ? '' : (data[field.id] || ''));
-        const value2 = (nextField.id === 'permit_number') 
-          ? (data[nextField.id] || '')
-          : (isBlank ? '' : (data[nextField.id] || ''));
-          
+      if (shouldPair && nextField && nextField.type !== 'checkbox') {
+        const value1 = isBlank && field.id !== 'permit_number' ? '' : (data[field.id] || '');
+        const value2 = isBlank && nextField.id !== 'permit_number' ? '' : (data[nextField.id] || '');
         html += `<div class="permit-fields-grid">
           <div class="permit-field permit-field-half">
             <span class="permit-field-label">${escapeHtml(field.label)}:</span>
@@ -139,63 +136,79 @@ function buildPermitHtml(template, data, isBlank) {
         </div>`;
         i += 2;
       } else {
-        // Render single field
-        const value = (field.id === 'permit_number') 
-          ? (data[field.id] || '')
-          : (isBlank ? '' : (data[field.id] || ''));
-        html += `
-          <div class="permit-field">
+        const value = isBlank && field.id !== 'permit_number' ? '' : (data[field.id] || '');
+        html += `<div class="permit-field">
             <span class="permit-field-label">${escapeHtml(field.label)}:</span>
             <span class="permit-field-value ${isBlank && field.id !== 'permit_number' ? 'blank' : ''}">${escapeHtml(value)}</span>
-          </div>
-        `;
+          </div>`;
+        // Show contractor ID directly below contractor company (filled permits only)
+        if (!isBlank && field.id === 'contractor_company' && data && data.contractor_id) {
+          html += `<div class="permit-field">
+              <span class="permit-field-label">Contractor ID:</span>
+              <span class="permit-field-value">${escapeHtml(data.contractor_id)}</span>
+            </div>`;
+        }
         i++;
       }
     }
+  }
 
-    html += '</div>';
+  if (inCheckboxGrid) html += `</div>`;
+  html += '</div>';
+  return html;
+}
+
+function buildPermitHtml(template, data, isBlank) {
+  let html = '';
+
+  // Header
+  html += `
+    <div class="permit-header">
+      <img src="/img/logo.png" alt="Company Logo" class="permit-logo">
+      <div><h1>${escapeHtml(template.name)}</h1></div>
+    </div>
+  `;
+
+  // All authoriser sections in a 2-column grid
+  html += `<div class="permit-body-columns">`;
+  template.sections.forEach(section => {
+    html += buildSectionHtml(section, data, isBlank);
   });
+  html += `</div>`;
 
-  // Handwritten sections
+  // Handwritten sections in a row
   if (template.handwrittenSections && template.handwrittenSections.length > 0) {
+    html += `<div class="permit-handwritten-row">`;
     template.handwrittenSections.forEach(section => {
       html += `<div class="permit-handwritten-section">`;
       html += `<h2>${escapeHtml(section.title)}</h2>`;
-
       if (section.description) {
         html += `<div class="permit-handwritten-description">${escapeHtml(section.description)}</div>`;
       }
-
       if (section.fields) {
         section.fields.forEach(f => {
-          const isCheckbox = f.type === 'checkbox';
           html += `<div class="permit-handwritten-field">`;
-          if (isCheckbox) {
-            html += `
-              <div class="permit-checkbox-row">
-                <span class="permit-checkbox"></span>
-                <span>${escapeHtml(f.label)}</span>
-              </div>
-            `;
+          if (f.type === 'checkbox') {
+            html += `<div class="permit-checkbox-row"><span class="permit-checkbox"></span><span>${escapeHtml(f.label)}</span></div>`;
           } else {
             html += `<div class="permit-handwritten-field-label">${escapeHtml(f.label)}:</div>`;
             const lines = f.lines || 1;
-            for (let i = 0; i < lines; i++) {
+            for (let j = 0; j < lines; j++) {
               html += `<div class="permit-handwritten-line"></div>`;
             }
           }
-          html += '</div>';
+          html += `</div>`;
         });
       }
-
-      html += '</div>';
+      html += `</div>`;
     });
+    html += `</div>`;
   }
 
   // Footer
   html += `
     <div class="permit-footer">
-      This permit is only valid for the date, time, and location specified above.<br>
+      This permit is only valid for the date, time, and location specified above.
       All conditions must be met before work commences. Retain this permit at the worksite.
     </div>
   `;

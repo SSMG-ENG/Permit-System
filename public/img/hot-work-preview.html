@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8">
+<style>/* ═══════════════════════════════════════════════════════════
+   Permit to Work System – Stylesheet
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── Reset & base ───────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --primary: #2c3e50;
+  --primary-light: #34495e;
+  --accent: #3498db;
+  --accent-hover: #2980b9;
+  --success: #27ae60;
+  --danger: #e74c3c;
+  --warning: #f39c12;
+  --bg: #f5f6fa;
+  --card-bg: #ffffff;
+  --text: #2c3e50;
+  --text-muted: #7f8c8d;
+  --border: #dcdde1;
+  --radius: 8px;
+  --shadow: 0 2px 8px rgba(0,0,0,0.08);
+  --shadow-lg: 0 4px 20px rgba(0,0,0,0.12);
+}
+
+html { font-size: 16px; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* ── Navigation ─────────────────────────────────────────── */
+.navbar {
+  background: var(--primary);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+  height: 60px;
+  box-shadow: var(--shadow);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.nav-brand {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.nav-brand-text {
+  font-size: 1.3rem;
+  line-height: 1;
+  transform: translateX(0.2rem);
+}
+
+.nav-logo {
+  height: 32px;
+  width: auto;
+  margin-right: 0.25rem;
+  filter: brightness(0) invert(1);
+}
+
+.nav-links { display: flex; gap: 1.5rem; }
+.nav-links a {
+  color: rgba(255,255,255,0.85);
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: #fff; }
+
+/* ── Layout ─────────────────────────────────────────────── */
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+}
+
+.page-header {
+  margin-bottom: 2rem;
+}
+.page-header h1 {
+  font-size: 1.8rem;
+  margin-bottom: 0.3rem;
+}
+.page-header p {
+  color: var(--text-muted);
+  font-size: 1rem;
+}
+
+/* ── Permit selection grid ──────────────────────────────── */
+.permit-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+
+.permit-card {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  transition: transform 0.15s, box-shadow 0.15s;
+  cursor: default;
+  display: flex;
+  flex-direction: column;
+  min-height: 320px;
+}
+.permit-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.permit-card-colour {
+  height: 6px;
+}
+.permit-card-body {
+  padding: 1.25rem 1.5rem 1rem;
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.permit-card-body h3 {
+  font-size: 1.15rem;
+  margin-bottom: 0.4rem;
+}
+.permit-card-body p {
+  color: var(--text-muted);
+  font-size: 0.88rem;
+  margin-bottom: 1rem;
+}
+
+.permit-card-actions {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0 1.5rem 1.25rem;
+  margin-top: auto;
+}
+
+/* ── Buttons ────────────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.55rem 1.2rem;
+  border: none;
+  border-radius: var(--radius);
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s, opacity 0.15s;
+  text-decoration: none;
+}
+.btn:active { opacity: 0.85; }
+
+.btn-primary {
+  background: var(--accent);
+  color: #fff;
+}
+.btn-primary:hover { background: var(--accent-hover); }
+
+.btn-secondary {
+  background: #ecf0f1;
+  color: var(--text);
+}
+.btn-secondary:hover { background: #dcdde1; }
+
+.btn-outline {
+  background: transparent;
+  border: 1.5px solid var(--border);
+  color: var(--text);
+}
+.btn-outline:hover { background: #f0f0f0; }
+
+.btn-danger {
+  background: var(--danger);
+  color: #fff;
+}
+.btn-danger:hover { background: #c0392b; }
+
+.btn-sm {
+  padding: 0.35rem 0.8rem;
+  font-size: 0.82rem;
+}
+
+/* ── Form styling ───────────────────────────────────────── */
+.form-section {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+.form-section h2 {
+  font-size: 1.15rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--bg);
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+.form-group label {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 0.3rem;
+  font-size: 0.92rem;
+}
+.form-group .required::after {
+  content: ' *';
+  color: var(--danger);
+}
+
+.form-group input[type="text"],
+.form-group input[type="date"],
+.form-group input[type="time"],
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  padding: 0.55rem 0.75rem;
+  border: 1.5px solid var(--border);
+  border-radius: 6px;
+  font-size: 0.92rem;
+  font-family: inherit;
+  transition: border-color 0.15s;
+}
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.form-group textarea { resize: vertical; min-height: 70px; }
+
+.form-check {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.6rem;
+}
+.form-check input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+.form-check label {
+  font-weight: 400;
+  margin-bottom: 0;
+  cursor: pointer;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 0.5rem;
+}
+
+/* ── Preview / Print toolbar ────────────────────────────── */
+.preview-toolbar {
+  background: var(--primary);
+  padding: 1rem 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  position: sticky;
+  top: 60px;
+  z-index: 99;
+}
+
+/* ── Print-ready permit area ────────────────────────────── */
+.permit-print-area {
+  max-width: 210mm;
+  margin: 1.5rem auto;
+  background: #fff;
+  padding: 18mm 16mm;
+  box-shadow: var(--shadow-lg);
+  font-size: 10pt;
+  line-height: 1.6;
+  color: #000;
+  font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+}
+
+.permit-header {
+  text-align: center;
+  border-bottom: 2.5px solid #000;
+  padding-bottom: 14px;
+  margin-bottom: 20px;
+}
+.permit-logo {
+  max-width: 100px;
+  height: auto;
+  margin-bottom: 10px;
+}
+.permit-header .company-name {
+  font-size: 9pt;
+  color: #333;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+.permit-header h1 {
+  font-size: 16pt;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 1.1px;
+  font-weight: 700;
+  color: #000;
+}
+.permit-header .permit-subtitle {
+  font-size: 9.5pt;
+  color: #444;
+  margin-top: 6px;
+  font-weight: 500;
+}
+
+.permit-section {
+  margin-bottom: 16px;
+  page-break-inside: avoid;
+  display: block;
+}
+.permit-section h2 {
+  font-size: 10.5pt;
+  background: linear-gradient(to right, #e8e8e8 0%, #f5f5f5 100%);
+  padding: 8px 10px;
+  margin-bottom: 10px;
+  border-left: 5px solid #2c3e50;
+  text-transform: uppercase;
+  letter-spacing: 0.7px;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+.permit-field {
+  display: flex;
+  margin-bottom: 6px;
+  font-size: 10pt;
+  line-height: 1.5;
+  align-items: flex-end;
+}
+.permit-field-label {
+  font-weight: 700;
+  min-width: 140px;
+  flex-shrink: 0;
+  color: #1a1a1a;
+}
+.permit-field-value {
+  flex: 1;
+  border-bottom: 1.5px solid #333;
+  min-height: 1.6em;
+  padding-left: 6px;
+  padding-right: 6px;
+  padding-bottom: 2px;
+}
+.permit-field-value.blank {
+  min-width: 200px;
+}
+
+.permit-checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+  font-size: 10pt;
+  line-height: 1.5;
+}
+.permit-checkbox {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  border: 1.5px solid #333;
+  flex-shrink: 0;
+  font-size: 10pt;
+  font-weight: bold;
+}
+.permit-checkbox.checked::after {
+  content: '✓';
+  font-weight: 700;
+  color: #000;
+}
+
+.permit-handwritten-section {
+  margin-bottom: 16px;
+  page-break-inside: avoid;
+  background: #fafafa;
+  padding: 12px;
+  border-radius: 4px;
+}
+.permit-handwritten-section h2 {
+  font-size: 10.5pt;
+  background: linear-gradient(to right, #d9d9d9 0%, #e8e8e8 100%);
+  padding: 8px 10px;
+  margin: -12px -12px 10px -12px;
+  border-left: 5px solid #555;
+  text-transform: uppercase;
+  letter-spacing: 0.7px;
+  font-weight: 700;
+  color: #1a1a1a;
+  border-radius: 4px 4px 0 0;
+}
+.permit-handwritten-description {
+  font-size: 9pt;
+  font-style: italic;
+  color: #555;
+  margin-bottom: 10px;
+  line-height: 1.5;
+  padding: 0 2px;
+}
+.permit-handwritten-field {
+  margin-bottom: 8px;
+  display: flex;
+  flex-direction: column;
+}
+.permit-handwritten-field-label {
+  font-size: 9pt;
+  font-weight: 700;
+  margin-bottom: 4px;
+  color: #1a1a1a;
+}
+.permit-handwritten-line {
+  border-bottom: 1px solid #666;
+  height: 32px;
+  background: #fff;
+  margin-bottom: 1px;
+}
+
+.permit-footer {
+  margin-top: 20px;
+  padding-top: 12px;
+  border-top: 2px solid #000;
+  text-align: center;
+  font-size: 8.5pt;
+  color: #555;
+  line-height: 1.5;
+  font-weight: 500;
+}
+
+/* ── 2-Column Field Grid Layout ────────────────────────── */
+.permit-fields-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 6px;
+}
+.permit-field-half {
+  margin-bottom: 0;
+}
+.permit-field-half .permit-field-label {
+  min-width: 100px;
+}
+
+/* ── Permit body columns (screen: single column, print: 2-col via @media) ── */
+.permit-body-columns {
+  display: block;
+}
+
+/* ── Checkbox grid (screen: 2-col, print: 3-col) ───────── */
+.permit-checkbox-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px 8px;
+}
+
+/* ── Handwritten sections row (screen: stack, print: row) ── */
+.permit-handwritten-row {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* ── Admin page ─────────────────────────────────────────── */
+.admin-toolbar {
+  margin-bottom: 1.5rem;
+}
+
+.admin-template-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.admin-template-item {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 1rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.admin-template-info h3 { font-size: 1rem; margin-bottom: 0.15rem; }
+.admin-template-info p { color: var(--text-muted); font-size: 0.85rem; }
+.admin-template-actions { display: flex; gap: 0.5rem; }
+
+/* ── Template editor ────────────────────────────────────── */
+.editor-panel {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+.editor-panel h2 {
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--bg);
+}
+
+.editor-section {
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem;
+  margin-bottom: 1rem;
+  position: relative;
+}
+.editor-section h3 {
+  font-size: 0.95rem;
+  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.editor-field-row {
+  display: grid;
+  grid-template-columns: 1fr 120px 80px auto;
+  gap: 0.5rem;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  padding: 0.4rem;
+  background: #fafafa;
+  border-radius: 4px;
+}
+.editor-field-row input,
+.editor-field-row select {
+  padding: 0.35rem 0.5rem;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-family: inherit;
+}
+
+.editor-hw-section {
+  border: 1.5px dashed var(--border);
+  border-radius: var(--radius);
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+.editor-hw-section h3 {
+  font-size: 0.95rem;
+  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.editor-hw-field-row {
+  display: grid;
+  grid-template-columns: 1fr 120px 60px auto;
+  gap: 0.5rem;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  padding: 0.4rem;
+  background: #fafafa;
+  border-radius: 4px;
+}
+.editor-hw-field-row input,
+.editor-hw-field-row select {
+  padding: 0.35rem 0.5rem;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-family: inherit;
+}
+
+.editor-actions {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: flex-end;
+  margin-top: 1rem;
+}
+
+.colour-picker-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.colour-picker-group input[type="color"] {
+  width: 40px;
+  height: 32px;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* ── Select dropdown for field types with options ───────── */
+.options-editor {
+  margin-top: 0.3rem;
+}
+.options-editor input {
+  width: 100%;
+  padding: 0.3rem 0.5rem;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  font-size: 0.82rem;
+}
+
+/* ── Utility ────────────────────────────────────────────── */
+.text-center { text-align: center; }
+.mt-1 { margin-top: 0.5rem; }
+.mt-2 { margin-top: 1rem; }
+.mb-1 { margin-bottom: 0.5rem; }
+
+/* ── Toast notifications ────────────────────────────────── */
+.toast-container {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.toast {
+  background: var(--primary);
+  color: #fff;
+  padding: 0.75rem 1.25rem;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+  font-size: 0.9rem;
+  animation: slideIn 0.3s ease;
+}
+.toast.success { background: var(--success); }
+.toast.error { background: var(--danger); }
+
+.field-type-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1200;
+}
+
+.field-type-modal {
+  width: min(420px, calc(100vw - 2rem));
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+  padding: 1.1rem;
+}
+
+.field-type-modal h3 {
+  font-size: 1.05rem;
+  margin-bottom: 0.35rem;
+}
+
+.field-type-modal p {
+  color: var(--text-muted);
+  margin-bottom: 0.9rem;
+  font-size: 0.92rem;
+}
+
+.field-type-modal-actions {
+  display: flex;
+  gap: 0.6rem;
+  margin-bottom: 0.8rem;
+}
+
+.field-type-modal-actions .btn {
+  flex: 1;
+  justify-content: center;
+}
+
+@keyframes slideIn {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   PRINT STYLES
+   ═══════════════════════════════════════════════════════════ */
+@page {
+  size: A4 portrait;
+  margin: 6mm;
+}
+
+@media print {
+  .no-print,
+  .navbar,
+  .preview-toolbar {
+    display: none !important;
+  }
+
+  html, body {
+    background: #fff !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    font-size: 7.5pt !important;
+    line-height: 1.25 !important;
+    width: 100% !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+
+  /* Fill the full page, no box-shadow or external margin */
+  .permit-print-area {
+    box-shadow: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    max-width: 100% !important;
+    width: 100% !important;
+    font-size: 7.5pt !important;
+    line-height: 1.25 !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* Compact header */
+  .permit-header {
+    display: flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    border-bottom: 2px solid #000 !important;
+    padding-bottom: 4px !important;
+    margin-bottom: 5px !important;
+    text-align: left !important;
+  }
+  .permit-logo {
+    max-width: 50px !important;
+    height: auto !important;
+    margin-bottom: 0 !important;
+    flex-shrink: 0;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .permit-header h1 {
+    font-size: 11pt !important;
+    margin: 0 !important;
+    line-height: 1.1 !important;
+  }
+  .permit-header .company-name {
+    font-size: 7pt !important;
+    margin-bottom: 2px !important;
+  }
+  .permit-header .permit-subtitle {
+    font-size: 7pt !important;
+    margin-top: 2px !important;
+  }
+
+  /* Body sections laid out in two columns */
+  .permit-body-columns {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 4px !important;
+    margin-bottom: 4px !important;
+  }
+
+  /* Each section */
+  .permit-section {
+    margin-bottom: 4px !important;
+    page-break-inside: auto !important;
+    break-inside: auto !important;
+  }
+  .permit-section h2 {
+    font-size: 7pt !important;
+    padding: 2px 5px !important;
+    margin-bottom: 3px !important;
+    letter-spacing: 0.3px !important;
+    border-left: 3px solid #2c3e50 !important;
+    background: #e8e8e8 !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* Text fields */
+  .permit-field {
+    display: flex !important;
+    margin-bottom: 2px !important;
+    font-size: 7.5pt !important;
+    line-height: 1.2 !important;
+    align-items: flex-end !important;
+  }
+  .permit-field-label {
+    min-width: 90px !important;
+    font-size: 7pt !important;
+    flex-shrink: 0 !important;
+    line-height: 1.2 !important;
+  }
+  .permit-field-value {
+    flex: 1 !important;
+    border-bottom: 1px solid #333 !important;
+    min-height: 1.2em !important;
+    padding: 0 3px 1px !important;
+    font-size: 7.5pt !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .permit-field-value.blank {
+    min-width: 80px !important;
+  }
+
+  /* 2-column field grid */
+  .permit-fields-grid {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 4px !important;
+    margin-bottom: 2px !important;
+  }
+  .permit-field-half .permit-field-label {
+    min-width: 70px !important;
+  }
+
+  /* Checkboxes in 3 columns */
+  .permit-checkbox-grid {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr 1fr !important;
+    gap: 1px 4px !important;
+  }
+  .permit-checkbox-row {
+    display: flex !important;
+    align-items: center !important;
+    gap: 3px !important;
+    margin-bottom: 1px !important;
+    font-size: 7pt !important;
+    line-height: 1.2 !important;
+  }
+  .permit-checkbox {
+    width: 9px !important;
+    height: 9px !important;
+    border: 1px solid #333 !important;
+    flex-shrink: 0 !important;
+    font-size: 7pt !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* Handwritten sections in a row at bottom */
+  .permit-handwritten-row {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(0, 1fr)) !important;
+    gap: 4px !important;
+    margin-top: 4px !important;
+  }
+  .permit-handwritten-section {
+    margin-bottom: 0 !important;
+    page-break-inside: auto !important;
+    break-inside: auto !important;
+    background: #fafafa !important;
+    padding: 4px !important;
+    border-radius: 2px !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .permit-handwritten-section h2 {
+    font-size: 7pt !important;
+    padding: 2px 5px !important;
+    margin: -4px -4px 4px -4px !important;
+    border-left: 3px solid #555 !important;
+    background: #d9d9d9 !important;
+    letter-spacing: 0.3px !important;
+    border-radius: 2px 2px 0 0 !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .permit-handwritten-description {
+    font-size: 6.5pt !important;
+    margin-bottom: 3px !important;
+    line-height: 1.2 !important;
+    color: #555 !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .permit-handwritten-field {
+    margin-bottom: 3px !important;
+  }
+  .permit-handwritten-field-label {
+    font-size: 6.5pt !important;
+    margin-bottom: 1px !important;
+    line-height: 1.1 !important;
+  }
+  .permit-handwritten-line {
+    height: 16px !important;
+    border-bottom: 1px solid #666 !important;
+    margin-bottom: 1px !important;
+    background: #fff !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* Footer */
+  .permit-footer {
+    margin-top: 4px !important;
+    padding-top: 3px !important;
+    border-top: 1px solid #000 !important;
+    font-size: 6.5pt !important;
+    line-height: 1.2 !important;
+    text-align: center !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}
+
+/* ── Permit Log Table ───────────────────────────────────── */
+.permit-log-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  margin-bottom: 1.5rem;
+}
+
+.permit-log-table thead {
+  background: var(--primary);
+  color: #fff;
+}
+
+.permit-log-table th {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  font-weight: 600;
+  font-size: 0.9rem;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+}
+
+.permit-log-table th:first-child { padding-left: 1.5rem; }
+.permit-log-table th:last-child { padding-right: 1.5rem; }
+
+.permit-log-table tbody tr {
+  border-bottom: 1px solid var(--border);
+  transition: background 0.15s;
+}
+
+.permit-log-table tbody tr:hover {
+  background: #f9f9f9;
+}
+
+.permit-log-table td {
+  padding: 0.75rem 1rem;
+  font-size: 0.9rem;
+}
+
+.permit-log-table td:first-child { padding-left: 1.5rem; }
+.permit-log-table td:last-child { padding-right: 1.5rem; }
+
+.permit-log-details {
+  background: #fafbfc;
+  padding: 1rem;
+  border-radius: 6px;
+  margin-top: 0.75rem;
+  font-size: 0.85rem;
+  border: 1px solid #ddd;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.permit-log-details pre {
+  margin: 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+  word-wrap: break-word;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: transparent;
+  padding: 0;
+  border-radius: 0;
+  border: none;
+  line-height: 1.6;
+  color: #333;
+  font-size: 0.9rem;
+  overflow-x: auto;
+}
+
+.permit-log-details pre span {
+  font-family: inherit;
+}
+
+/* ── Responsive ─────────────────────────────────────────── */
+@media (max-width: 600px) {
+  .navbar { padding: 0 1rem; }
+  .nav-brand-text { font-size: 1.08rem; }
+  .container { padding: 1rem; }
+  .permit-grid { grid-template-columns: 1fr; }
+  .permit-field { flex-direction: column; }
+  .permit-field-label { min-width: 0; margin-bottom: 2px; }
+  .editor-field-row { grid-template-columns: 1fr; }
+  .editor-hw-field-row { grid-template-columns: 1fr; }
+  .form-actions { flex-direction: column; gap: 0.5rem; }
+}
+</style>
+</head>
+<body style="background:#fff;padding:0;margin:0;">
+<div class="permit-print-area" style="margin:0;padding:10mm;box-shadow:none;">
+<div class="permit-header"><img src="http://localhost:3000/img/logo.png" class="permit-logo" alt=""><div><h1>Hot Work Permit</h1></div></div><div class="permit-body-columns"><div class="permit-section"><h2>General Information</h2><div class="permit-field"><span class="permit-field-label">Permit Number:</span><span class="permit-field-value">HW-001</span></div><div class="permit-field"><span class="permit-field-label">Date Issued:</span><span class="permit-field-value blank"></span></div><div class="permit-fields-grid"><div class="permit-field permit-field-half"><span class="permit-field-label">Valid From (Time):</span><span class="permit-field-value blank"></span></div><div class="permit-field permit-field-half"><span class="permit-field-label">Valid To (Time):</span><span class="permit-field-value blank"></span></div></div><div class="permit-field"><span class="permit-field-label">Exact Location of Work:</span><span class="permit-field-value blank"></span></div><div class="permit-field"><span class="permit-field-label">Description of Work:</span><span class="permit-field-value blank"></span></div><div class="permit-field"><span class="permit-field-label">Equipment to be Used:</span><span class="permit-field-value blank"></span></div></div><div class="permit-section"><h2>Personnel</h2><div class="permit-fields-grid"><div class="permit-field permit-field-half"><span class="permit-field-label">Authorised By (Name):</span><span class="permit-field-value blank"></span></div><div class="permit-field permit-field-half"><span class="permit-field-label">Position / Title:</span><span class="permit-field-value blank"></span></div></div><div class="permit-field"><span class="permit-field-label">Contractor / Company:</span><span class="permit-field-value blank"></span></div></div><div class="permit-section"><h2>Pre-Work Precautions</h2><div class="permit-checkbox-grid"><div class="permit-checkbox-row"><span class="permit-checkbox"></span><span>Area inspected and cleared of combustible materials</span></div><div class="permit-checkbox-row"><span class="permit-checkbox"></span><span>Fire extinguisher available at work location</span></div><div class="permit-checkbox-row"><span class="permit-checkbox"></span><span>Combustible materials covered or protected</span></div><div class="permit-checkbox-row"><span class="permit-checkbox"></span><span>Fire watch person assigned</span></div><div class="permit-checkbox-row"><span class="permit-checkbox"></span><span>Smoke/heat detectors isolated (if applicable)</span></div><div class="permit-checkbox-row"><span class="permit-checkbox"></span><span>Sprinkler system operational</span></div><div class="permit-checkbox-row"><span class="permit-checkbox"></span><span>Adequate ventilation provided</span></div><div class="permit-checkbox-row"><span class="permit-checkbox"></span><span>Area tested for flammable gases/vapours</span></div><div class="permit-checkbox-row"><span class="permit-checkbox"></span><span>Adjacent areas (above/below/beside) checked</span></div><div class="permit-checkbox-row"><span class="permit-checkbox"></span><span>Hot work screens/shields in place</span></div></div><div class="permit-field"><span class="permit-field-label">Other Precautions (specify):</span><span class="permit-field-value blank"></span></div></div><div class="permit-section"><h2>PPE Requirements</h2><div class="permit-checkbox-grid"><div class="permit-checkbox-row"><span class="permit-checkbox"></span><span>Welding helmet / visor</span></div><div class="permit-checkbox-row"><span class="permit-checkbox"></span><span>Heat-resistant gloves</span></div><div class="permit-checkbox-row"><span class="permit-checkbox"></span><span>Flame-resistant apron / clothing</span></div><div class="permit-checkbox-row"><span class="permit-checkbox"></span><span>Safety boots</span></div><div class="permit-checkbox-row"><span class="permit-checkbox"></span><span>Eye protection</span></div><div class="permit-checkbox-row"><span class="permit-checkbox"></span><span>Ear protection</span></div><div class="permit-checkbox-row"><span class="permit-checkbox"></span><span>Respiratory protection</span></div></div><div class="permit-field"><span class="permit-field-label">Other PPE (specify):</span><span class="permit-field-value blank"></span></div></div><div class="permit-section"><h2>Additional Hazards / Controls</h2><div class="permit-field"><span class="permit-field-label">Identify any additional hazards:</span><span class="permit-field-value blank"></span></div><div class="permit-field"><span class="permit-field-label">Additional control measures:</span><span class="permit-field-value blank"></span></div></div></div><div class="permit-handwritten-row"><div class="permit-handwritten-section"><h2>Worker Acknowledgement</h2><div class="permit-handwritten-description">I confirm I have read and understood the conditions of this permit and will comply with all precautions listed.</div><div class="permit-handwritten-field"><div class="permit-handwritten-field-label">Worker Name (Print):</div><div class="permit-handwritten-line"></div></div><div class="permit-handwritten-field"><div class="permit-handwritten-field-label">Worker Signature:</div><div class="permit-handwritten-line"></div></div><div class="permit-handwritten-field"><div class="permit-handwritten-field-label">Date / Time:</div><div class="permit-handwritten-line"></div></div></div><div class="permit-handwritten-section"><h2>Post-Work Inspection (Fire Watch)</h2><div class="permit-handwritten-description">To be completed after hot work has ceased. Area must be monitored for at least 60 minutes after work completion.</div><div class="permit-handwritten-field"><div class="permit-handwritten-field-label">Area inspected and safe:</div><div class="permit-handwritten-line"></div></div><div class="permit-handwritten-field"><div class="permit-handwritten-field-label">Inspected By (Name):</div><div class="permit-handwritten-line"></div></div><div class="permit-handwritten-field"><div class="permit-handwritten-field-label">Signature:</div><div class="permit-handwritten-line"></div></div><div class="permit-handwritten-field"><div class="permit-handwritten-field-label">Date / Time of Inspection:</div><div class="permit-handwritten-line"></div></div></div><div class="permit-handwritten-section"><h2>Permit Cancellation</h2><div class="permit-handwritten-description">To be completed when work is finished or the permit expires.</div><div class="permit-handwritten-field"><div class="permit-handwritten-field-label">Work completed / Permit cancelled by:</div><div class="permit-handwritten-line"></div></div><div class="permit-handwritten-field"><div class="permit-handwritten-field-label">Signature:</div><div class="permit-handwritten-line"></div></div><div class="permit-handwritten-field"><div class="permit-handwritten-field-label">Date / Time:</div><div class="permit-handwritten-line"></div></div><div class="permit-handwritten-field"><div class="permit-handwritten-field-label">Smoke/heat detectors reinstated:</div><div class="permit-handwritten-line"></div></div></div></div><div class="permit-footer">This permit is only valid for the date, time, and location specified above. All conditions must be met before work commences. Retain this permit at the worksite.</div>
+</div>
+</body></html>

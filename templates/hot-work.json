@@ -64,6 +64,21 @@
         { "id": "additional_hazards", "label": "Identify any additional hazards", "type": "textarea" },
         { "id": "additional_controls", "label": "Additional control measures", "type": "textarea" }
       ]
+    },
+    {
+      "title": "Inspection Controls",
+      "type": "authoriser",
+      "description": "These controls are <i><strong>mandatory</strong></i> for at least 2 hours after completion of work",
+      "fields": [
+        { "id": "inspection_1_time", "label": "Time of 1st Inspection", "type": "time", "required": false },
+        { "id": "inspection_1_signature", "label": "Signature", "type": "text", "required": false },
+        { "id": "inspection_2_time", "label": "Time of 2nd Inspection", "type": "time", "required": false },
+        { "id": "inspection_2_signature", "label": "Signature", "type": "text", "required": false },
+        { "id": "inspection_3_time", "label": "Time of 3rd Inspection", "type": "time", "required": false },
+        { "id": "inspection_3_signature", "label": "Signature", "type": "text", "required": false },
+        { "id": "inspection_4_time", "label": "Time of 4th Inspection", "type": "time", "required": false },
+        { "id": "inspection_4_signature", "label": "Signature", "type": "text", "required": false }
+      ]
     }
   ],
   "handwrittenSections": [

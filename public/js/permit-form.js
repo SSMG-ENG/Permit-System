@@ -53,7 +53,36 @@ function renderFormField(field, sectionIndex) {
     const requiredAttr = field.required ? 'required' : '';
 
     let input = '';
-    
+
+    // Special handling: contractor_company → dropdown + auto-fill ID field
+    if (field.id === 'contractor_company' && approvedContractors.length > 0) {
+      const fragment = document.createDocumentFragment();
+
+      const selectGroup = document.createElement('div');
+      selectGroup.className = 'form-group';
+      const options = approvedContractors.map(c =>
+        `<option value="${escapeAttr(c.name)}" data-cid="${escapeAttr(c.id)}">${escapeHtml(c.name)}</option>`
+      ).join('');
+      selectGroup.innerHTML = `
+        <label for="${escapeAttr(fieldId)}" class="${requiredClass}">${escapeHtml(field.label)}</label>
+        <select id="${escapeAttr(fieldId)}" data-field-id="${escapeAttr(field.id)}" ${requiredAttr}
+          onchange="fillContractorId(this)">
+          <option value="">-- Select Contractor --</option>${options}
+        </select>`;
+      fragment.appendChild(selectGroup);
+
+      const idGroup = document.createElement('div');
+      idGroup.className = 'form-group';
+      idGroup.innerHTML = `
+        <label>Contractor ID</label>
+        <input type="text" id="field_contractor_id" data-field-id="contractor_id"
+          readonly style="background:#f0f0f0;cursor:not-allowed;"
+          placeholder="Auto-filled when contractor selected">`;
+      fragment.appendChild(idGroup);
+
+      return fragment;
+    }
+
     // Special handling for permit_number field
     if (field.id === 'permit_number') {
       input = `<input type="text" id="${escapeAttr(fieldId)}" data-field-id="${escapeAttr(field.id)}" value="${escapeAttr(currentGeneratedPermitNumber || '')}" readonly style="background:#f0f0f0;cursor:not-allowed;">`;
@@ -90,6 +119,15 @@ function renderFormField(field, sectionIndex) {
   }
 
   return group;
+}
+
+// ── Contractor ID auto-fill ─────────────────────────────
+function fillContractorId(selectEl) {
+  const selected = selectEl.options[selectEl.selectedIndex];
+  const idField = document.getElementById('field_contractor_id');
+  if (idField) {
+    idField.value = (selected && selected.dataset.cid) ? selected.dataset.cid : '';
+  }
 }
 
 // ── Collect all form values ─────────────────────────────
