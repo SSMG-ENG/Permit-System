@@ -14,6 +14,7 @@
         { "id": "valid_to", "label": "Valid To (Time)", "type": "time", "required": true },
         { "id": "location", "label": "Location of Work", "type": "text", "required": true },
         { "id": "description_of_work", "label": "Description of Work", "type": "textarea", "required": true },
+        { "id": "contractor_company", "label": "Contractor / Company", "type": "text", "required": false },
         { "id": "height", "label": "Maximum Working Height (metres)", "type": "text", "required": true },
         { "id": "rams_attached_available", "label": "RAMS attached and available?", "type": "checkbox" }
       ]
@@ -52,8 +53,7 @@
       "type": "authoriser",
       "fields": [
         { "id": "authorised_by", "label": "Authorised By (Name)", "type": "text", "required": true },
-        { "id": "authorised_by_position", "label": "Position / Title", "type": "text", "required": true },
-        { "id": "contractor_company", "label": "Contractor / Company", "type": "text", "required": false }
+        { "id": "authorised_by_position", "label": "Position / Title", "type": "text", "required": true }
       ]
     },
     {

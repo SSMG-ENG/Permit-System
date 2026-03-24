@@ -45,6 +45,11 @@
           "required": true
         },
         {
+          "id": "contractor_company",
+          "label": "Contractor / Company",
+          "type": "text"
+        },
+        {
           "id": "rams_attached_available",
           "label": "RAMS attached and available?",
           "type": "checkbox"
@@ -167,11 +172,6 @@
         {
           "id": "competent_person",
           "label": "Competent Person (if applicable)",
-          "type": "text"
-        },
-        {
-          "id": "contractor_company",
-          "label": "Contractor / Company",
           "type": "text"
         }
       ]
