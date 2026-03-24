@@ -370,6 +370,12 @@ function escapeAttr(str) {
 }
 
 // ── Admin password protection ───────────────────────────
+function resetPermitNumbers() {
+  localStorage.removeItem('permit_numbers');
+  currentGeneratedPermitNumber = null;
+  showToast('Permit numbers reset; next permit starts at 1', 'success');
+}
+
 function promptAdminPassword() {
   const backdrop = document.createElement('div');
   backdrop.className = 'field-type-modal-backdrop';
