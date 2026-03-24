@@ -81,14 +81,10 @@
       "title": "Post-Work Inspection (Fire Watch)",
       "description": "To be completed after hot work has ceased. Area must be monitored for at least 60 minutes after work completion.",
       "fields": [
-        { "label": "Time of 1st Inspection", "lines": 1 },
-        { "label": "Signature", "lines": 1 },
-        { "label": "Time of 2nd Inspection", "lines": 1 },
-        { "label": "Signature", "lines": 1 },
-        { "label": "Time of 3rd Inspection", "lines": 1 },
-        { "label": "Signature", "lines": 1 },
-        { "label": "Time of 4th Inspection", "lines": 1 },
-        { "label": "Signature", "lines": 1 }
+        { "label": "1st inspection __________________________  signature __________________________", "lines": 1 },
+        { "label": "2nd inspection __________________________  signature __________________________", "lines": 1 },
+        { "label": "3rd inspection __________________________  signature __________________________", "lines": 1 },
+        { "label": "4th inspection __________________________  signature __________________________", "lines": 1 }
       ]
     },
     {
