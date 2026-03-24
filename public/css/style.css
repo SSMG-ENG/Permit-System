@@ -458,6 +458,15 @@ body {
   margin-bottom: 4px;
   color: #1a1a1a;
 }
+.permit-handwritten-field-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+.permit-handwritten-field-pair-item {
+  margin-bottom: 0;
+}
 .permit-handwritten-line {
   border-bottom: 1px solid #666;
   height: 32px;
@@ -979,6 +988,13 @@ body {
   }
   .permit-handwritten-field {
     margin-bottom: 3px !important;
+  }
+  .permit-handwritten-field-pair {
+    gap: 4px !important;
+    margin-bottom: 3px !important;
+  }
+  .permit-handwritten-field-pair-item {
+    margin-bottom: 0 !important;
   }
   .permit-handwritten-field-label {
     font-size: 6.5pt !important;
