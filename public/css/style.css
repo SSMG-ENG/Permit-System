@@ -479,6 +479,10 @@ body {
   font-weight: 700;
   margin-bottom: 4px;
   color: #1a1a1a;
+  background-color: #ffeb3b;
+  padding: 2px 4px;
+  border-radius: 2px;
+  display: inline-block;
 }
 .permit-handwritten-field-pair {
   display: grid;
@@ -1024,6 +1028,12 @@ body {
     font-size: 6.5pt !important;
     margin-bottom: 1px !important;
     line-height: 1.1 !important;
+    background-color: #ffeb3b !important;
+    padding: 1px 2px !important;
+    border-radius: 1px !important;
+    display: inline-block !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
   }
   .permit-handwritten-line {
     height: 16px !important;
@@ -1209,6 +1219,10 @@ body {
   font-size: 6.5pt !important;
   font-weight: 700 !important;
   margin-bottom: 1px !important;
+  background-color: #ffeb3b !important;
+  padding: 1px 2px !important;
+  border-radius: 1px !important;
+  display: inline-block !important;
 }
 
 .permit-print-area.print-preview-mode .permit-handwritten-line {

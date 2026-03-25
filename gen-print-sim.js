@@ -92,7 +92,7 @@ const printCss = `
   .permit-handwritten-section h2 { font-size: 7pt; padding: 2px 5px; margin: -4px -4px 4px -4px; border-left: 3px solid #555; background: #d9d9d9; text-transform: uppercase; letter-spacing: 0.3px; font-weight: 700; }
   .permit-handwritten-description { font-size: 6.5pt; margin-bottom: 3px; line-height: 1.2; color: #555; font-style: italic; }
   .permit-handwritten-field { margin-bottom: 3px; }
-  .permit-handwritten-field-label { font-size: 6.5pt; font-weight: 700; margin-bottom: 1px; }
+  .permit-handwritten-field-label { font-size: 6.5pt; font-weight: 700; margin-bottom: 1px; background-color: #ffeb3b; padding: 1px 2px; border-radius: 1px; display: inline-block; }
   .permit-handwritten-line { height: 16px; border-bottom: 1px solid #666; background: #fff; margin-bottom: 1px; }
   .permit-footer { margin-top: 4px; padding-top: 3px; border-top: 1px solid #000; font-size: 6.5pt; text-align: center; }
 `;
