@@ -416,7 +416,6 @@ async function saveTemplate() {
   const id = (document.getElementById('ed-id').value || '').trim();
   const name = (document.getElementById('ed-name').value || '').trim();
   const description = (document.getElementById('ed-description').value || '').trim();
-  const colour = document.getElementById('ed-colour').value || '#3498db';
 
   // Debug: log when saveTemplate is called and the template data
   console.log('[DEBUG] saveTemplate called');
