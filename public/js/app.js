@@ -65,6 +65,13 @@ function navigateTo(view, data) {
   // Hide all views
   document.querySelectorAll('.view').forEach(v => v.style.display = 'none');
 
+  // Reset print preview mode when navigating away
+  printPreviewMode = false;
+  const previewEl = document.getElementById('permit-preview');
+  if (previewEl) previewEl.classList.remove('print-preview-mode');
+  const blankEl = document.getElementById('blank-preview');
+  if (blankEl) blankEl.classList.remove('print-preview-mode');
+
   currentView = view;
 
   switch (view) {
@@ -156,6 +163,29 @@ function setPermitPrintLog({ permit_number, template_id, template_name, type, fo
     type,
     form_data: form_data || null
   };
+}
+
+// ── Print Preview Mode Toggle ──────────────────────────
+let printPreviewMode = false;
+
+function togglePrintPreview(view = 'preview') {
+  printPreviewMode = !printPreviewMode;
+  const previewId = view === 'blank' ? 'blank-preview' : 'permit-preview';
+  const btnId = view === 'blank' ? 'toggle-print-preview-btn-blank' : 'toggle-print-preview-btn';
+  const previewElement = document.getElementById(previewId);
+  const btn = document.getElementById(btnId);
+
+  if (printPreviewMode) {
+    previewElement.classList.add('print-preview-mode');
+    btn.textContent = '📄 Normal Preview';
+    btn.classList.remove('btn-default');
+    btn.classList.add('btn-primary');
+  } else {
+    previewElement.classList.remove('print-preview-mode');
+    btn.textContent = '📄 Print Preview Mode';
+    btn.classList.remove('btn-primary');
+    btn.classList.add('btn-default');
+  }
 }
 
 // ── Permit Log View ─────────────────────────────────────

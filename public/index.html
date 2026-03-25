@@ -55,6 +55,7 @@
   <div id="view-preview" class="view" style="display:none;">
     <div class="no-print preview-toolbar">
       <button class="btn btn-secondary" onclick="navigateTo('form')">← Back to Form</button>
+      <button class="btn btn-default" id="toggle-print-preview-btn" onclick="togglePrintPreview()">📄 Print Preview Mode</button>
       <button class="btn btn-primary" onclick="window.print()">🖨 Print Permit</button>
     </div>
     <div id="permit-preview" class="permit-print-area">
@@ -66,6 +67,7 @@
   <div id="view-blank" class="view" style="display:none;">
     <div class="no-print preview-toolbar">
       <button class="btn btn-secondary" onclick="navigateTo('home')">← Back</button>
+      <button class="btn btn-default" id="toggle-print-preview-btn-blank" onclick="togglePrintPreview('blank')">📄 Print Preview Mode</button>
       <button class="btn btn-primary" onclick="window.print()">🖨 Print Blank Permit</button>
     </div>
     <div id="blank-preview" class="permit-print-area">

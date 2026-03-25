@@ -285,85 +285,99 @@ body {
 /* ── Print-ready permit area ────────────────────────────── */
 .permit-print-area {
   max-width: 210mm;
-  margin: 1rem auto;
+  margin: 1.5rem auto;
   background: #fff;
-  padding: 6mm;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 18mm 16mm;
+  box-shadow: var(--shadow-lg);
+  font-size: 10pt;
+  line-height: 1.6;
+  color: #000;
+  font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+}
+
+/* ── Print Preview Mode (screen simulation of actual print layout) ────────── */
+.permit-print-area.print-preview-mode {
+  max-width: 210mm;
+  margin: 1.5rem auto;
+  background: #f5f5f5;
+  padding: 0;
+  box-shadow: 0 0 0 1px #ddd, inset 0 0 0 1px #999;
   font-size: 7.5pt;
   line-height: 1.25;
   color: #000;
   font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
   -webkit-print-color-adjust: exact;
   print-color-adjust: exact;
+  page-break-inside: avoid;
+}
+
+.permit-print-area.print-preview-mode .permit-content {
+  padding: 6mm;
+  background: #fff;
+  margin: 0;
 }
 
 .permit-header {
+  text-align: center;
+  border-bottom: 2.5px solid #000;
+  padding-bottom: 14px;
+  margin-bottom: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: 2px;
-  border-bottom: 2px solid #000;
-  padding-bottom: 4px;
-  margin-bottom: 5px;
-  text-align: center;
 }
 .permit-logo {
-  max-width: 80px;
+  max-width: 120px;
   height: auto;
-  margin-bottom: 2px;
-  flex-shrink: 0;
-  -webkit-print-color-adjust: exact;
-  print-color-adjust: exact;
+  margin-bottom: 10px;
 }
 .permit-header .company-name {
-  font-size: 7pt;
+  font-size: 9pt;
   color: #333;
-  letter-spacing: 0.3px;
+  letter-spacing: 1.2px;
   text-transform: uppercase;
-  margin-bottom: 2px;
+  margin-bottom: 6px;
   font-weight: 600;
 }
 .permit-header h1 {
-  font-size: 12pt;
+  font-size: 16pt;
   margin: 0;
   text-transform: uppercase;
-  letter-spacing: 0.3px;
+  letter-spacing: 1.1px;
   font-weight: 700;
   color: #000;
-  line-height: 1.2;
 }
 .permit-header .permit-subtitle {
-  font-size: 7pt;
+  font-size: 9.5pt;
   color: #444;
-  margin-top: 2px;
+  margin-top: 6px;
   font-weight: 500;
 }
 
 .permit-section {
-  margin-bottom: 4px;
+  margin-bottom: 16px;
   page-break-inside: avoid;
   display: block;
 }
 .permit-section h2 {
-  font-size: 7pt;
-  background: #e8e8e8;
-  padding: 2px 5px;
-  margin-bottom: 3px;
-  border-left: 3px solid #2c3e50;
+  font-size: 10.5pt;
+  background: linear-gradient(to right, #e8e8e8 0%, #f5f5f5 100%);
+  padding: 8px 10px;
+  margin-bottom: 10px;
+  border-left: 5px solid #2c3e50;
   text-transform: uppercase;
-  letter-spacing: 0.3px;
+  letter-spacing: 0.7px;
   font-weight: 700;
   color: #1a1a1a;
 }
 
 .permit-section-description {
-  font-size: 6.5pt;
+  font-size: 9pt;
   font-style: italic;
-  color: #555;
-  margin-bottom: 3px;
-  padding: 0 2px;
-  line-height: 1.2;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+  padding: 0 10px;
+  line-height: 1.4;
 }
 
 .permit-section-description i {
@@ -377,47 +391,49 @@ body {
 
 .permit-field {
   display: flex;
-  margin-bottom: 2px;
-  font-size: 7.5pt;
-  line-height: 1.2;
-  align-items: flex-end;
-  gap: 2px;
+  margin-bottom: 6px;
+  font-size: 10pt;
+  line-height: 1.5;
+  align-items: flex-start;
+  gap: 6px;
 }
 .permit-field-label {
   font-weight: 700;
-  min-width: 90px;
-  flex-shrink: 0;
-  font-size: 7pt;
-  line-height: 1.2;
+  max-width: 40%;
+  flex-shrink: 1;
   color: #1a1a1a;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 .permit-field-value {
   flex: 1;
-  border-bottom: 1px solid #333;
-  min-height: 1.2em;
-  padding: 0 3px 1px;
+  border-bottom: 1.5px solid #333;
+  min-height: 1.6em;
+  padding-left: 6px;
+  padding-right: 6px;
+  padding-bottom: 2px;
 }
 .permit-field-value.blank {
-  min-width: 80px;
+  min-width: 200px;
 }
 
 .permit-checkbox-row {
   display: flex;
   align-items: center;
-  gap: 3px;
-  margin-bottom: 1px;
-  font-size: 7pt;
-  line-height: 1.2;
+  gap: 8px;
+  margin-bottom: 4px;
+  font-size: 10pt;
+  line-height: 1.5;
 }
 .permit-checkbox {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 9px;
-  height: 9px;
-  border: 1px solid #333;
+  width: 16px;
+  height: 16px;
+  border: 1.5px solid #333;
   flex-shrink: 0;
-  font-size: 6pt;
+  font-size: 10pt;
   font-weight: bold;
 }
 .permit-checkbox.checked::after {
@@ -427,67 +443,67 @@ body {
 }
 
 .permit-handwritten-section {
-  background: #fafafa;
-  padding: 4px;
-  border-radius: 2px;
+  margin-bottom: 16px;
   page-break-inside: avoid;
+  background: #fafafa;
+  padding: 12px;
+  border-radius: 4px;
 }
 .permit-handwritten-section h2 {
-  font-size: 7pt;
-  background: #d9d9d9;
-  padding: 2px 5px;
-  margin: -4px -4px 4px -4px;
-  border-left: 3px solid #555;
+  font-size: 10.5pt;
+  background: linear-gradient(to right, #d9d9d9 0%, #e8e8e8 100%);
+  padding: 8px 10px;
+  margin: -12px -12px 10px -12px;
+  border-left: 5px solid #555;
   text-transform: uppercase;
-  letter-spacing: 0.3px;
+  letter-spacing: 0.7px;
   font-weight: 700;
   color: #1a1a1a;
-  border-radius: 2px 2px 0 0;
-  line-height: 1.2;
+  border-radius: 4px 4px 0 0;
 }
 .permit-handwritten-description {
-  font-size: 6.5pt;
+  font-size: 9pt;
   font-style: italic;
   color: #555;
-  margin-bottom: 3px;
-  line-height: 1.2;
+  margin-bottom: 10px;
+  line-height: 1.5;
   padding: 0 2px;
 }
 .permit-handwritten-field {
-  margin-bottom: 3px;
+  margin-bottom: 8px;
   display: flex;
   flex-direction: column;
 }
 .permit-handwritten-field-label {
-  font-size: 6.5pt;
+  font-size: 9pt;
   font-weight: 700;
-  margin-bottom: 1px;
+  margin-bottom: 4px;
   color: #1a1a1a;
 }
 .permit-handwritten-field-pair {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 2px;
-  margin-bottom: 3px;
+  gap: 10px;
+  margin-bottom: 8px;
 }
 .permit-handwritten-field-pair-item {
   margin-bottom: 0;
 }
 .permit-handwritten-line {
   border-bottom: 1px solid #666;
-  height: 16px;
+  height: 32px;
   background: #fff;
   margin-bottom: 1px;
 }
 
 .permit-footer {
-  margin-top: 4px;
-  padding-top: 3px;
-  border-top: 1px solid #000;
+  margin-top: 20px;
+  padding-top: 12px;
+  border-top: 2px solid #000;
   text-align: center;
-  font-size: 6.5pt;
+  font-size: 8.5pt;
   color: #555;
-  line-height: 1.2;
+  line-height: 1.5;
   font-weight: 500;
 }
 
@@ -495,37 +511,33 @@ body {
 .permit-fields-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 4px;
-  margin-bottom: 2px;
+  gap: 12px;
+  margin-bottom: 6px;
 }
 .permit-field-half {
   margin-bottom: 0;
 }
 .permit-field-half .permit-field-label {
-  min-width: 70px;
+  max-width: 50%;
 }
 
-/* ── Permit body columns (2-column grid matching print) ── */
+/* ── Permit body columns (screen: single column, print: 2-col via @media) ── */
 .permit-body-columns {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 4px;
-  margin-bottom: 4px;
+  display: block;
 }
 
-/* ── Checkbox grid (3-column matching print) ───────────── */
+/* ── Checkbox grid (screen: 2-col, print: 3-col) ───────── */
 .permit-checkbox-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 1px 4px;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px 8px;
 }
 
-/* ── Handwritten sections row (3-column grid matching print) ── */
+/* ── Handwritten sections row (screen: stack, print: row) ── */
 .permit-handwritten-row {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 4px;
-  margin-top: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
 /* ── Admin page ─────────────────────────────────────────── */
@@ -796,31 +808,233 @@ body {
     background: #fff !important;
     margin: 0 !important;
     padding: 0 !important;
+    font-size: 7.5pt !important;
+    line-height: 1.25 !important;
+    width: 100% !important;
+    height: auto !important;
+    overflow: visible !important;
   }
 
-  /* Remove screen margins/shadow for print */
+  /* Fill the full page, no box-shadow or external margin */
   .permit-print-area {
     box-shadow: none !important;
     margin: 0 !important;
-    padding: 6mm !important;
+    padding: 0 !important;
     max-width: 100% !important;
     width: 100% !important;
+    font-size: 7.5pt !important;
+    line-height: 1.25 !important;
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
   }
 
-  /* Styles already match, just ensure color accuracy */
-  .permit-section h2,
-  .permit-handwritten-section h2,
-  .permit-logo,
-  .permit-field-value,
-  .permit-checkbox,
+  /* Compact header */
+  .permit-header {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 2px !important;
+    border-bottom: 2px solid #000 !important;
+    padding-bottom: 4px !important;
+    margin-bottom: 5px !important;
+    text-align: center !important;
+  }
+  .permit-logo {
+    max-width: 80px !important;
+    height: auto !important;
+    margin-bottom: 2px !important;
+    flex-shrink: 0;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .permit-header h1 {
+    font-size: 12pt !important;
+    margin: 0 !important;
+    line-height: 1.2 !important;
+    font-weight: 700 !important;
+  }
+  .permit-header .company-name {
+    font-size: 7pt !important;
+    margin-bottom: 2px !important;
+  }
+  .permit-header .permit-subtitle {
+    font-size: 7pt !important;
+    margin-top: 2px !important;
+  }
+
+  /* Body sections laid out in two columns */
+  .permit-body-columns {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 4px !important;
+    margin-bottom: 4px !important;
+  }
+
+  /* Each section */
+  .permit-section {
+    margin-bottom: 4px !important;
+    page-break-inside: auto !important;
+    break-inside: auto !important;
+  }
+  .permit-section h2 {
+    font-size: 7pt !important;
+    padding: 2px 5px !important;
+    margin-bottom: 3px !important;
+    letter-spacing: 0.3px !important;
+    border-left: 3px solid #2c3e50 !important;
+    background: #e8e8e8 !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .permit-section-description {
+    font-size: 6.5pt !important;
+    font-style: italic !important;
+    color: #666 !important;
+    margin-bottom: 2px !important;
+    padding: 0 5px !important;
+    line-height: 1.2 !important;
+  }
+
+  .permit-section-description strong {
+    font-weight: 700 !important;
+    color: #333 !important;
+  }
+
+  /* Text fields */
+  .permit-field {
+    display: flex !important;
+    margin-bottom: 2px !important;
+    font-size: 7.5pt !important;
+    line-height: 1.2 !important;
+    align-items: flex-start !important;
+    gap: 2px !important;
+  }
+  .permit-field-label {
+    max-width: 45% !important;
+    font-size: 7pt !important;
+    flex-shrink: 1 !important;
+    line-height: 1.2 !important;
+    word-wrap: break-word !important;
+    overflow-wrap: break-word !important;
+    padding-top: 1px !important;
+  }
+  .permit-field-value {
+    flex: 1 !important;
+    border-bottom: 1px solid #333 !important;
+    min-height: 1.2em !important;
+    padding: 0 3px 1px !important;
+    font-size: 7.5pt !important;
+    line-height: 1.2 !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .permit-field-value.blank {
+    min-width: 60px !important;
+  }
+
+  /* 2-column field grid */
+  .permit-fields-grid {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 4px !important;
+    margin-bottom: 2px !important;
+  }
+  .permit-field-half {
+    margin-bottom: 0 !important;
+  }
+  .permit-field-half .permit-field-label {
+    max-width: 50% !important;
+  }
+
+  /* Checkboxes in 3 columns */
+  .permit-checkbox-grid {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr 1fr !important;
+    gap: 1px 4px !important;
+  }
+  .permit-checkbox-row {
+    display: flex !important;
+    align-items: center !important;
+    gap: 3px !important;
+    margin-bottom: 1px !important;
+    font-size: 7pt !important;
+    line-height: 1.2 !important;
+  }
+  .permit-checkbox {
+    width: 9px !important;
+    height: 9px !important;
+    border: 1px solid #333 !important;
+    flex-shrink: 0 !important;
+    font-size: 7pt !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* Handwritten sections in a row at bottom */
+  .permit-handwritten-row {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(0, 1fr)) !important;
+    gap: 4px !important;
+    margin-top: 4px !important;
+  }
   .permit-handwritten-section {
+    margin-bottom: 0 !important;
+    page-break-inside: auto !important;
+    break-inside: auto !important;
+    background: #fafafa !important;
+    padding: 4px !important;
+    border-radius: 2px !important;
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
   }
-}
+  .permit-handwritten-section h2 {
+    font-size: 7pt !important;
+    padding: 2px 5px !important;
+    margin: -4px -4px 4px -4px !important;
+    border-left: 3px solid #555 !important;
+    background: #d9d9d9 !important;
+    letter-spacing: 0.3px !important;
+    border-radius: 2px 2px 0 0 !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .permit-handwritten-description {
+    font-size: 6.5pt !important;
+    margin-bottom: 3px !important;
+    line-height: 1.2 !important;
+    color: #555 !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .permit-handwritten-field {
+    margin-bottom: 3px !important;
+  }
+  .permit-handwritten-field-pair {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 4px !important;
+    margin-bottom: 3px !important;
+  }
+  .permit-handwritten-field-pair-item {
+    margin-bottom: 0 !important;
+  }
+  .permit-handwritten-field-label {
+    font-size: 6.5pt !important;
+    margin-bottom: 1px !important;
+    line-height: 1.1 !important;
+  }
+  .permit-handwritten-line {
+    height: 16px !important;
+    border-bottom: 1px solid #666 !important;
+    margin-bottom: 1px !important;
+    background: #fff !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
 
+  /* Footer */
   .permit-footer {
     margin-top: 4px !important;
     padding-top: 3px !important;
@@ -831,6 +1045,185 @@ body {
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
   }
+}
+
+/* ── Print Preview Mode (screen simulation) ────────────── */
+.permit-print-area.print-preview-mode {
+  padding: 6mm !important;
+  margin: 1.5rem auto !important;
+  font-size: 7.5pt !important;
+  line-height: 1.25 !important;
+}
+
+.permit-print-area.print-preview-mode * {
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+.permit-print-area.print-preview-mode .permit-header {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 2px !important;
+  border-bottom: 2px solid #000 !important;
+  padding-bottom: 4px !important;
+  margin-bottom: 5px !important;
+  text-align: center !important;
+}
+
+.permit-print-area.print-preview-mode .permit-logo {
+  max-width: 80px !important;
+  height: auto !important;
+  margin-bottom: 2px !important;
+  flex-shrink: 0;
+}
+
+.permit-print-area.print-preview-mode .permit-header h1 {
+  font-size: 12pt !important;
+  margin: 0 !important;
+  line-height: 1.2 !important;
+  font-weight: 700 !important;
+}
+
+.permit-print-area.print-preview-mode .permit-body-columns {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 4px !important;
+  margin-bottom: 4px !important;
+}
+
+.permit-print-area.print-preview-mode .permit-section {
+  margin-bottom: 4px !important;
+}
+
+.permit-print-area.print-preview-mode .permit-section h2 {
+  font-size: 7pt !important;
+  padding: 2px 5px !important;
+  margin-bottom: 3px !important;
+  border-left: 3px solid #2c3e50 !important;
+  background: #e8e8e8 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.3px !important;
+  font-weight: 700 !important;
+}
+
+.permit-print-area.print-preview-mode .permit-field {
+  display: flex !important;
+  margin-bottom: 2px !important;
+  font-size: 7.5pt !important;
+  line-height: 1.2 !important;
+  align-items: flex-end !important;
+}
+
+.permit-print-area.print-preview-mode .permit-field-label {
+  font-weight: 700 !important;
+  min-width: 90px !important;
+  flex-shrink: 0 !important;
+  font-size: 7pt !important;
+  line-height: 1.2 !important;
+}
+
+.permit-print-area.print-preview-mode .permit-field-value {
+  flex: 1 !important;
+  border-bottom: 1px solid #333 !important;
+  min-height: 1.2em !important;
+  padding: 0 3px 1px !important;
+}
+
+.permit-print-area.print-preview-mode .permit-field-value.blank {
+  min-width: 80px !important;
+}
+
+.permit-print-area.print-preview-mode .permit-fields-grid {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 4px !important;
+  margin-bottom: 2px !important;
+}
+
+.permit-print-area.print-preview-mode .permit-field-half .permit-field-label {
+  min-width: 70px !important;
+}
+
+.permit-print-area.print-preview-mode .permit-checkbox-grid {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr 1fr !important;
+  gap: 1px 4px !important;
+}
+
+.permit-print-area.print-preview-mode .permit-checkbox-row {
+  display: flex !important;
+  align-items: center !important;
+  gap: 3px !important;
+  margin-bottom: 1px !important;
+  font-size: 7pt !important;
+  line-height: 1.2 !important;
+}
+
+.permit-print-area.print-preview-mode .permit-checkbox {
+  width: 9px !important;
+  height: 9px !important;
+  border: 1px solid #333 !important;
+  flex-shrink: 0 !important;
+  display: inline-block !important;
+}
+
+.permit-print-area.print-preview-mode .permit-handwritten-row {
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important;
+  gap: 4px !important;
+  margin-top: 4px !important;
+}
+
+.permit-print-area.print-preview-mode .permit-handwritten-section {
+  background: #fafafa !important;
+  padding: 4px !important;
+  border-radius: 2px !important;
+}
+
+.permit-print-area.print-preview-mode .permit-handwritten-section h2 {
+  font-size: 7pt !important;
+  padding: 2px 5px !important;
+  margin: -4px -4px 4px -4px !important;
+  border-left: 3px solid #555 !important;
+  background: #d9d9d9 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.3px !important;
+  font-weight: 700 !important;
+}
+
+.permit-print-area.print-preview-mode .permit-handwritten-description {
+  font-size: 6.5pt !important;
+  margin-bottom: 3px !important;
+  line-height: 1.2 !important;
+  color: #555 !important;
+  font-style: italic !important;
+}
+
+.permit-print-area.print-preview-mode .permit-handwritten-field {
+  margin-bottom: 3px !important;
+}
+
+.permit-print-area.print-preview-mode .permit-handwritten-field-label {
+  font-size: 6.5pt !important;
+  font-weight: 700 !important;
+  margin-bottom: 1px !important;
+}
+
+.permit-print-area.print-preview-mode .permit-handwritten-line {
+  height: 16px !important;
+  border-bottom: 1px solid #666 !important;
+  background: #fff !important;
+  margin-bottom: 1px !important;
+}
+
+.permit-print-area.print-preview-mode .permit-footer {
+  margin-top: 4px !important;
+  padding-top: 3px !important;
+  border-top: 1px solid #000 !important;
+  font-size: 6.5pt !important;
+  text-align: center !important;
 }
 
 /* ── Permit Log Table ───────────────────────────────────── */
