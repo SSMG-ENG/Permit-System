@@ -216,10 +216,6 @@ function renderEditor() {
         <label>Description</label>
         <textarea id="ed-description" placeholder="Brief description of when this permit is used">${escapeHtml(t.description || '')}</textarea>
       </div>
-      <div class="form-group">
-        <label>Colour</label>
-        <input type="color" id="ed-colour" value="${escapeAttr(t.colour || '#3498db')}">
-      </div>
     </div>
   `;
 
