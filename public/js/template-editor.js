@@ -216,6 +216,10 @@ function renderEditor() {
         <label>Description</label>
         <textarea id="ed-description" placeholder="Brief description of when this permit is used">${escapeHtml(t.description || '')}</textarea>
       </div>
+      <div class="form-group">
+        <label>Colour</label>
+        <input type="color" id="ed-colour" value="${escapeAttr(t.colour || '#3498db')}">
+      </div>
     </div>
   `;
 
@@ -418,6 +422,10 @@ async function saveTemplate() {
   const description = (document.getElementById('ed-description').value || '').trim();
   const colour = document.getElementById('ed-colour').value || '#3498db';
 
+  // Debug: log when saveTemplate is called and the template data
+  console.log('[DEBUG] saveTemplate called');
+  console.log('[DEBUG] editorTemplate before save:', JSON.stringify(editorTemplate, null, 2));
+
   if (!id || !name) {
     showToast('Template ID and Name are required', 'error');
     return;
@@ -449,6 +457,7 @@ async function saveTemplate() {
     }
     navigateTo('admin');
   } catch (e) {
+    console.error('[DEBUG] Save failed:', e);
     showToast('Save failed: ' + e.message, 'error');
   }
 }
