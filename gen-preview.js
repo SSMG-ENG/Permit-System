@@ -58,7 +58,8 @@ template.handwrittenSections.forEach(s => {
   if(s.description) body += '<div class="permit-handwritten-description">'+escapeHtml(s.description)+'</div>';
   if(s.fields) s.fields.forEach(f => {
     body += '<div class="permit-handwritten-field">';
-    body += '<div class="permit-handwritten-field-label">'+escapeHtml(f.label)+':</div>';
+    const highlightClass = f.highlight ? ' highlight' : '';
+    body += '<div class="permit-handwritten-field-label'+highlightClass+'">'+escapeHtml(f.label)+':</div>';
     for(let j=0;j<(f.lines||1);j++) body += '<div class="permit-handwritten-line"></div>';
     body += '</div>';
   });

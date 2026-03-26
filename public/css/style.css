@@ -479,10 +479,12 @@ body {
   font-weight: 700;
   margin-bottom: 4px;
   color: #1a1a1a;
-  background-color: #ffeb3b;
   padding: 2px 4px;
   border-radius: 2px;
   display: inline-block;
+}
+.permit-handwritten-field-label.highlight {
+  background-color: #ffeb3b;
 }
 .permit-handwritten-field-pair {
   display: grid;

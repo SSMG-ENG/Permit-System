@@ -210,7 +210,8 @@ function buildPermitHtml(template, data, isBlank) {
           if (f.type === 'checkbox') {
             html += `<div class="permit-checkbox-row"><span class="permit-checkbox"></span><span>${escapeHtml(f.label)}</span></div>`;
           } else {
-            html += `<div class="permit-handwritten-field-label">${escapeHtml(f.label)}:</div>`;
+            const highlightClass = f.highlight ? 'highlight' : '';
+            html += `<div class="permit-handwritten-field-label ${highlightClass}">${escapeHtml(f.label)}:</div>`;
             const lines = f.lines || 1;
             for (let j = 0; j < lines; j++) {
               html += `<div class="permit-handwritten-line"></div>`;

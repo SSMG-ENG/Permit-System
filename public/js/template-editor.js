@@ -303,6 +303,7 @@ function renderEditorHandwrittenSection(section, hIdx) {
   (section.fields || []).forEach((f, fIdx) => {
     const fieldType = f.type || 'line';
     const isLine = fieldType !== 'checkbox';
+    if (f.highlight === undefined) f.highlight = false;
     html += `
       <div class="editor-hw-field-row">
         <input type="text" value="${escapeAttr(f.label)}" placeholder="Field label" onchange="editorTemplate.handwrittenSections[${hIdx}].fields[${fIdx}].label=this.value">
@@ -311,6 +312,9 @@ function renderEditorHandwrittenSection(section, hIdx) {
           <option value="checkbox" ${fieldType === 'checkbox' ? 'selected' : ''}>Tickbox</option>
         </select>
         <input type="number" value="${f.lines || 1}" min="1" max="10" onchange="editorTemplate.handwrittenSections[${hIdx}].fields[${fIdx}].lines=parseInt(this.value)||1" title="Number of blank lines" style="width:60px;" ${isLine ? '' : 'disabled'}>
+        <label style="display:flex;align-items:center;gap:4px;font-size:0.82rem;white-space:nowrap;">
+          <input type="checkbox" ${f.highlight ? 'checked' : ''} onchange="editorTemplate.handwrittenSections[${hIdx}].fields[${fIdx}].highlight=this.checked"> Highlight
+        </label>
         <button class="btn btn-danger btn-sm" onclick="removeHandwrittenField(${hIdx},${fIdx})">×</button>
       </div>
     `;
