@@ -405,6 +405,13 @@ body {
   word-wrap: break-word;
   overflow-wrap: break-word;
 }
+.permit-field-label.highlight {
+  background-color: #ffeb3b;
+  padding: 2px 4px;
+  border-radius: 2px;
+  display: inline-block;
+  max-width: none;
+}
 .permit-field-value {
   flex: 1;
   border-bottom: 1.5px solid #333;
@@ -639,7 +646,7 @@ body {
 
 .editor-field-row {
   display: grid;
-  grid-template-columns: 1fr 120px 80px auto;
+  grid-template-columns: 1fr 120px 1fr auto;
   gap: 0.5rem;
   align-items: center;
   margin-bottom: 0.5rem;
@@ -654,6 +661,12 @@ body {
   border-radius: 4px;
   font-size: 0.85rem;
   font-family: inherit;
+}
+.editor-field-checkboxes {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
 .editor-hw-section {
@@ -672,7 +685,7 @@ body {
 
 .editor-hw-field-row {
   display: grid;
-  grid-template-columns: 1fr 120px 60px auto;
+  grid-template-columns: 1fr 120px 60px 1fr auto;
   gap: 0.5rem;
   align-items: center;
   margin-bottom: 0.5rem;
@@ -687,6 +700,12 @@ body {
   border-radius: 4px;
   font-size: 0.85rem;
   font-family: inherit;
+}
+.editor-hw-field-checkboxes {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
 .editor-actions {

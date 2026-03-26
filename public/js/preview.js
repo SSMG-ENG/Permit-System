@@ -124,21 +124,24 @@ function buildSectionHtml(section, data, isBlank) {
       if (shouldPair && nextField && nextField.type !== 'checkbox') {
         const value1 = isBlank && field.id !== 'permit_number' ? '' : (data[field.id] || '');
         const value2 = isBlank && nextField.id !== 'permit_number' ? '' : (data[nextField.id] || '');
+        const highlight1 = field.highlight ? 'highlight' : '';
+        const highlight2 = nextField.highlight ? 'highlight' : '';
         html += `<div class="permit-fields-grid">
           <div class="permit-field permit-field-half">
-            <span class="permit-field-label">${escapeHtml(field.label)}:</span>
+            <span class="permit-field-label ${highlight1}">${escapeHtml(field.label)}:</span>
             <span class="permit-field-value ${isBlank && field.id !== 'permit_number' ? 'blank' : ''}">${escapeHtml(value1)}</span>
           </div>
           <div class="permit-field permit-field-half">
-            <span class="permit-field-label">${escapeHtml(nextField.label)}:</span>
+            <span class="permit-field-label ${highlight2}">${escapeHtml(nextField.label)}:</span>
             <span class="permit-field-value ${isBlank && nextField.id !== 'permit_number' ? 'blank' : ''}">${escapeHtml(value2)}</span>
           </div>
         </div>`;
         i += 2;
       } else {
         const value = isBlank && field.id !== 'permit_number' ? '' : (data[field.id] || '');
+        const highlightClass = field.highlight ? 'highlight' : '';
         html += `<div class="permit-field">
-            <span class="permit-field-label">${escapeHtml(field.label)}:</span>
+            <span class="permit-field-label ${highlightClass}">${escapeHtml(field.label)}:</span>
             <span class="permit-field-value ${isBlank && field.id !== 'permit_number' ? 'blank' : ''}">${escapeHtml(value)}</span>
           </div>`;
         // Show contractor ID directly below contractor company (filled permits only)

@@ -31,11 +31,14 @@ function buildSectionHtml(section, data, isBlank) {
       if(inCbGrid) { html+='</div>'; inCbGrid=false; }
       const sp=shouldPairFields(f,nf);
       if(sp&&nf&&nf.type!=='checkbox') {
-        html+='<div class="permit-fields-grid"><div class="permit-field permit-field-half"><span class="permit-field-label">'+escapeHtml(f.label)+':</span><span class="permit-field-value blank"></span></div><div class="permit-field permit-field-half"><span class="permit-field-label">'+escapeHtml(nf.label)+':</span><span class="permit-field-value blank"></span></div></div>';
+        const h1 = f.highlight ? ' highlight' : '';
+        const h2 = nf.highlight ? ' highlight' : '';
+        html+='<div class="permit-fields-grid"><div class="permit-field permit-field-half"><span class="permit-field-label'+h1+'">'+escapeHtml(f.label)+':</span><span class="permit-field-value blank"></span></div><div class="permit-field permit-field-half"><span class="permit-field-label'+h2+'">'+escapeHtml(nf.label)+':</span><span class="permit-field-value blank"></span></div></div>';
         i+=2;
       } else {
         const isPN = f.id==='permit_number';
-        html+='<div class="permit-field"><span class="permit-field-label">'+escapeHtml(f.label)+':</span><span class="permit-field-value'+(isPN?'':' blank')+'">'+(isPN?'HW-001':'')+'</span></div>';
+        const hc = f.highlight ? ' highlight' : '';
+        html+='<div class="permit-field"><span class="permit-field-label'+hc+'">'+escapeHtml(f.label)+':</span><span class="permit-field-value'+(isPN?'':' blank')+'">'+(isPN?'HW-001':'')+'</span></div>';
         i++;
       }
     }

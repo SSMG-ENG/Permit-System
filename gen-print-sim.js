@@ -31,11 +31,14 @@ function buildSectionHtml(section) {
       if(inCbGrid) { html+='</div>'; inCbGrid=false; }
       const sp=shouldPairFields(f,nf);
       if(sp&&nf&&nf.type!=='checkbox') {
-        html+='<div class="permit-fields-grid"><div class="permit-field permit-field-half"><span class="permit-field-label">'+escapeHtml(f.label)+':</span><span class="permit-field-value blank"></span></div><div class="permit-field permit-field-half"><span class="permit-field-label">'+escapeHtml(nf.label)+':</span><span class="permit-field-value blank"></span></div></div>';
+        const h1 = f.highlight ? ' highlight' : '';
+        const h2 = nf.highlight ? ' highlight' : '';
+        html+='<div class="permit-fields-grid"><div class="permit-field permit-field-half"><span class="permit-field-label'+h1+'">'+escapeHtml(f.label)+':</span><span class="permit-field-value blank"></span></div><div class="permit-field permit-field-half"><span class="permit-field-label'+h2+'">'+escapeHtml(nf.label)+':</span><span class="permit-field-value blank"></span></div></div>';
         i+=2;
       } else {
         const isPN = f.id==='permit_number';
-        html+='<div class="permit-field"><span class="permit-field-label">'+escapeHtml(f.label)+':</span><span class="permit-field-value'+(isPN?'':' blank')+'">'+(isPN?'HW-001':'')+'</span></div>';
+        const hc = f.highlight ? ' highlight' : '';
+        html+='<div class="permit-field"><span class="permit-field-label'+hc+'">'+escapeHtml(f.label)+':</span><span class="permit-field-value'+(isPN?'':' blank')+'">'+(isPN?'HW-001':'')+'</span></div>';
         i++;
       }
     }
@@ -81,6 +84,7 @@ const printCss = `
   .permit-section h2 { font-size: 7pt; padding: 2px 5px; margin-bottom: 3px; border-left: 3px solid #2c3e50; background: #e8e8e8; text-transform: uppercase; letter-spacing: 0.3px; font-weight: 700; }
   .permit-field { display: flex; margin-bottom: 2px; font-size: 7.5pt; line-height: 1.2; align-items: flex-end; }
   .permit-field-label { font-weight: 700; min-width: 90px; flex-shrink: 0; font-size: 7pt; line-height: 1.2; }
+  .permit-field-label.highlight { background-color: #ffeb3b; padding: 1px 2px; border-radius: 1px; display: inline-block; }
   .permit-field-value { flex: 1; border-bottom: 1px solid #333; min-height: 1.2em; padding: 0 3px 1px; }
   .permit-field-value.blank { min-width: 80px; }
   .permit-fields-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; margin-bottom: 2px; }

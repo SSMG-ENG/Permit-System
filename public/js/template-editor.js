@@ -256,6 +256,7 @@ function renderEditorSection(section, sIdx) {
   `;
 
   section.fields.forEach((field, fIdx) => {
+    if (field.highlight === undefined) field.highlight = false;
     html += `
       <div class="editor-field-row">
         <input type="text" value="${escapeAttr(field.label)}" placeholder="Field label" onchange="editorTemplate.sections[${sIdx}].fields[${fIdx}].label=this.value">
@@ -267,9 +268,14 @@ function renderEditorSection(section, sIdx) {
           <option value="checkbox" ${field.type === 'checkbox' ? 'selected' : ''}>Checkbox</option>
           <option value="select" ${field.type === 'select' ? 'selected' : ''}>Dropdown</option>
         </select>
-        <label style="display:flex;align-items:center;gap:4px;font-size:0.82rem;white-space:nowrap;">
-          <input type="checkbox" ${field.required ? 'checked' : ''} onchange="editorTemplate.sections[${sIdx}].fields[${fIdx}].required=this.checked"> Req
-        </label>
+        <div class="editor-field-checkboxes">
+          <label style="display:flex;align-items:center;gap:4px;font-size:0.82rem;white-space:nowrap;">
+            <input type="checkbox" ${field.required ? 'checked' : ''} onchange="editorTemplate.sections[${sIdx}].fields[${fIdx}].required=this.checked"> Req
+          </label>
+          <label style="display:flex;align-items:center;gap:4px;font-size:0.82rem;white-space:nowrap;">
+            <input type="checkbox" ${field.highlight ? 'checked' : ''} onchange="editorTemplate.sections[${sIdx}].fields[${fIdx}].highlight=this.checked"> Highlight
+          </label>
+        </div>
         <button class="btn btn-danger btn-sm" onclick="removeField(${sIdx},${fIdx})">×</button>
       </div>
     `;
@@ -312,9 +318,11 @@ function renderEditorHandwrittenSection(section, hIdx) {
           <option value="checkbox" ${fieldType === 'checkbox' ? 'selected' : ''}>Tickbox</option>
         </select>
         <input type="number" value="${f.lines || 1}" min="1" max="10" onchange="editorTemplate.handwrittenSections[${hIdx}].fields[${fIdx}].lines=parseInt(this.value)||1" title="Number of blank lines" style="width:60px;" ${isLine ? '' : 'disabled'}>
-        <label style="display:flex;align-items:center;gap:4px;font-size:0.82rem;white-space:nowrap;">
-          <input type="checkbox" ${f.highlight ? 'checked' : ''} onchange="editorTemplate.handwrittenSections[${hIdx}].fields[${fIdx}].highlight=this.checked"> Highlight
-        </label>
+        <div class="editor-hw-field-checkboxes">
+          <label style="display:flex;align-items:center;gap:4px;font-size:0.82rem;white-space:nowrap;">
+            <input type="checkbox" ${f.highlight ? 'checked' : ''} onchange="editorTemplate.handwrittenSections[${hIdx}].fields[${fIdx}].highlight=this.checked"> Highlight
+          </label>
+        </div>
         <button class="btn btn-danger btn-sm" onclick="removeHandwrittenField(${hIdx},${fIdx})">×</button>
       </div>
     `;
