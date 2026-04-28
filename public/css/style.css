@@ -5,6 +5,14 @@
 /* ── Reset & base ───────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+.site-footer {
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--text-muted, #7f8c8d);
+  padding: 1rem 0;
+  border-top: 1px solid var(--border, #dcdde1);
+}
+
 :root {
   --primary: #2c3e50;
   --primary-light: #34495e;
