@@ -1,0 +1,173 @@
+/* ═══════════════════════════════════════════════════════════
+   Permit to Work System – Layout
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── Reset & base ───────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+.site-footer {
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--text-muted, #7f8c8d);
+  padding: 1rem 0;
+  border-top: 1px solid var(--border, #dcdde1);
+}
+
+:root {
+  --primary: #2c3e50;
+  --primary-light: #34495e;
+  --accent: #3498db;
+  --accent-hover: #2980b9;
+  --success: #27ae60;
+  --danger: #e74c3c;
+  --warning: #f39c12;
+  --bg: #f5f6fa;
+  --card-bg: #ffffff;
+  --text: #2c3e50;
+  --text-muted: #7f8c8d;
+  --border: #dcdde1;
+  --radius: 8px;
+  --shadow: 0 2px 8px rgba(0,0,0,0.08);
+  --shadow-lg: 0 4px 20px rgba(0,0,0,0.12);
+}
+
+html { font-size: 16px; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* ── Sidebar ────────────────────────────────────────────── */
+.sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 220px;
+  height: 100vh;
+  background: var(--primary);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 0 1rem;
+  box-shadow: var(--shadow);
+  z-index: 100;
+}
+
+.sidebar-brand {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.sidebar-brand-text {
+  font-size: 1.05rem;
+  line-height: 1.2;
+  text-align: center;
+}
+
+.sidebar-logo {
+  height: 40px;
+  width: auto;
+  filter: brightness(0) invert(1);
+}
+
+.sidebar-links {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.sidebar-links a {
+  color: rgba(255,255,255,0.8);
+  text-decoration: none;
+  font-size: 0.95rem;
+  padding: 0.75rem 1.5rem;
+  transition: background 0.2s, color 0.2s;
+  border-left: 3px solid transparent;
+}
+.sidebar-links a:hover {
+  color: #fff;
+  background: rgba(255,255,255,0.08);
+  border-left-color: var(--accent);
+}
+
+/* ── Main content area (offset for sidebar) ───────────── */
+.main-content {
+  margin-left: 220px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Layout ─────────────────────────────────────────────── */
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+}
+
+.page-header {
+  margin-bottom: 2rem;
+}
+.page-header h1 {
+  font-size: 1.8rem;
+  margin-bottom: 0.3rem;
+}
+.page-header p {
+  color: var(--text-muted);
+  font-size: 1rem;
+}
+
+/* ── Responsive ─────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 60px;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1rem;
+  }
+  .sidebar-brand {
+    flex-direction: row;
+    margin-bottom: 0;
+    gap: 0.4rem;
+  }
+  .sidebar-brand-text { font-size: 1.08rem; }
+  .sidebar-logo { height: 32px; }
+  .sidebar-links { flex-direction: row; width: auto; }
+  .sidebar-links a {
+    padding: 0 0.75rem;
+    border-left: none;
+    font-size: 0.9rem;
+  }
+  .sidebar-links a:hover { border-left-color: transparent; }
+  .preview-toolbar { top: 60px; }
+  .main-content {
+    margin-left: 0;
+    margin-top: 60px;
+  }
+}
+
+@media (max-width: 600px) {
+  .sidebar-brand-text { display: none; }
+  .container { padding: 1rem; }
+  .permit-grid { grid-template-columns: 1fr; }
+  .permit-field { flex-direction: column; }
+  .permit-field-label { min-width: 0; margin-bottom: 2px; }
+  .editor-field-row { grid-template-columns: 1fr; }
+  .editor-hw-field-row { grid-template-columns: 1fr; }
+  .form-actions { flex-direction: column; gap: 0.5rem; }
+}
