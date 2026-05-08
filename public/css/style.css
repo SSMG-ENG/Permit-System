@@ -307,7 +307,7 @@ body {
   align-items: center;
   gap: 1rem;
   position: sticky;
-  top: 60px;
+  top: 0;
   z-index: 99;
 }
 
@@ -1392,6 +1392,7 @@ body {
     font-size: 0.9rem;
   }
   .sidebar-links a:hover { border-left-color: transparent; }
+  .preview-toolbar { top: 60px; }
   .main-content {
     margin-left: 0;
     margin-top: 60px;
