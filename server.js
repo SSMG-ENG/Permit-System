@@ -2,6 +2,10 @@ const express = require('express');
 const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
+const https = require('https');
+const bcrypt = require('bcryptjs');
+const rateLimit = require('express-rate-limit');
+const rfs = require('rotating-file-stream');
 const XLSX = require('xlsx');
 const helmet = require('helmet');
 
@@ -17,9 +21,46 @@ let contractorsCache = {
   contractors: []
 };
 
-app.use(helmet({ contentSecurityPolicy: false }));
-app.use(express.json());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(helmet({
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc: ["'self'", "'unsafe-inline'"],
+      styleSrc: ["'self'", "'unsafe-inline'"],
+      imgSrc: ["'self'", "data:"],
+      connectSrc: ["'self'"],
+    }
+  }
+}));
+app.use(express.json({ limit: '500kb' }));
+app.use(express.static(path.join(__dirname, 'public'), { maxAge: '1h' }));
+
+// Ensure required directories exist
+[TEMPLATES_DIR, DATA_DIR].forEach(dir => {
+  if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+});
+
+// ── Migrate plaintext admin password to bcrypt hash ──────────
+(function migratePassword() {
+  const settings = readSettings();
+  if (settings.adminPassword && !settings.adminPasswordHash) {
+    settings.adminPasswordHash = bcrypt.hashSync(settings.adminPassword, 10);
+    delete settings.adminPassword;
+    writeSettings(settings);
+    console.log('[security] Migrated admin password to bcrypt hash');
+  }
+  if (!settings.adminPasswordHash) {
+    settings.adminPasswordHash = bcrypt.hashSync('1234', 10);
+    writeSettings(settings);
+    console.log('[security] Initialised admin password with bcrypt hash (default: 1234)');
+  }
+})();
+
+const loginLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 5,
+  message: { error: 'Too many login attempts, try again later' }
+});
 
 // ── Admin session management ────────────────────────────────
 const adminSessions = new Map();
@@ -38,11 +79,11 @@ function requireAdmin(req, res, next) {
   next();
 }
 
-app.post('/api/admin/login', (req, res) => {
+app.post('/api/admin/login', loginLimiter, async (req, res) => {
   const { password } = req.body || {};
   const settings = readSettings();
-  const adminPassword = settings.adminPassword || '1234';
-  if (!password || password !== adminPassword) {
+  const hash = settings.adminPasswordHash || '';
+  if (!password || !hash || !(await bcrypt.compare(password, hash))) {
     return res.status(401).json({ error: 'Incorrect password' });
   }
   const token = crypto.randomUUID();
@@ -54,11 +95,6 @@ app.post('/api/admin/logout', requireAdmin, (req, res) => {
   const token = (req.headers['authorization'] || '').slice(7).trim();
   adminSessions.delete(token);
   res.json({ ok: true });
-});
-
-// Ensure required directories exist
-[TEMPLATES_DIR, DATA_DIR].forEach(dir => {
-  if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
 });
 
 // ── Settings helpers ────────────────────────────────────────
@@ -187,7 +223,14 @@ function sanitizeId(id) {
 }
 
 // ── Permit Print Log API ───────────────────────────────────
-const LOG_FILE = path.join(__dirname, 'logs', 'permit-log.jsonl');
+const LOG_DIR = path.join(__dirname, 'logs');
+if (!fs.existsSync(LOG_DIR)) fs.mkdirSync(LOG_DIR, { recursive: true });
+const logStream = rfs.createStream('permit-log.jsonl', {
+  path: LOG_DIR,
+  size: '10M',
+  interval: '30d',
+  compress: true,
+});
 
 // Append a log entry (called when a permit is printed)
 app.post('/api/permit-log', (req, res) => {
@@ -202,7 +245,7 @@ app.post('/api/permit-log', (req, res) => {
     form_data: (body.type === 'filled' && body.form_data && typeof body.form_data === 'object') ? body.form_data : null,
   };
   try {
-    fs.appendFileSync(LOG_FILE, JSON.stringify(entry) + '\n', 'utf8');
+    logStream.write(JSON.stringify(entry) + '\n');
     res.json({ success: true });
   } catch (e) {
     res.status(500).json({ error: 'Failed to write log' });
@@ -212,8 +255,9 @@ app.post('/api/permit-log', (req, res) => {
 // Get all log entries (admin only)
 app.get('/api/permit-log', requireAdmin, (req, res) => {
   try {
-    if (!fs.existsSync(LOG_FILE)) return res.json([]);
-    const lines = fs.readFileSync(LOG_FILE, 'utf8').split('\n').filter(line => line.trim().length > 0);
+    const logFile = path.join(LOG_DIR, 'permit-log.jsonl');
+    if (!fs.existsSync(logFile)) return res.json([]);
+    const lines = fs.readFileSync(logFile, 'utf8').split('\n').filter(line => line.trim().length > 0);
     const entries = lines.map(line => {
       try { return JSON.parse(line); } catch { return null; }
     }).filter(Boolean);
@@ -289,6 +333,11 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-app.listen(PORT, () => {
-  console.log(`Permit System running at http://localhost:${PORT}`);
+const httpsOptions = {
+  key: fs.readFileSync(path.join(__dirname, 'server.key')),
+  cert: fs.readFileSync(path.join(__dirname, 'server.cert')),
+};
+
+https.createServer(httpsOptions, app).listen(PORT, () => {
+  console.log(`Permit System running at https://localhost:${PORT}`);
 });

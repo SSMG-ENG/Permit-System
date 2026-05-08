@@ -429,10 +429,6 @@ async function saveTemplate() {
   const name = (document.getElementById('ed-name').value || '').trim();
   const description = (document.getElementById('ed-description').value || '').trim();
 
-  // Debug: log when saveTemplate is called and the template data
-  console.log('[DEBUG] saveTemplate called');
-  console.log('[DEBUG] editorTemplate before save:', JSON.stringify(editorTemplate, null, 2));
-
   if (!id || !name) {
     showToast('Template ID and Name are required', 'error');
     return;
@@ -464,7 +460,6 @@ async function saveTemplate() {
     }
     navigateTo('admin');
   } catch (e) {
-    console.error('[DEBUG] Save failed:', e);
     showToast('Save failed: ' + e.message, 'error');
   }
 }
